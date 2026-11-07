@@ -1,1 +1,321 @@
 @import "tailwindcss";
+
+/* ──────────────────────────────────────────────────────────────
+   Design tokens
+   Near-monochrome, one accent (muted teal-green). Contrast checked
+   (WCAG AA ≥ 4.5:1) for fg / muted / accent over glass AND over the
+   brightest point of the colour fields, in both themes.
+   ────────────────────────────────────────────────────────────── */
+:root {
+  color-scheme: light;
+  --bg: #f3f4f3;
+  --fg: #0d1110;
+  --fg-muted: #4a5451;
+  --accent: #1a6457;
+  --accent-fill: #1a6457;
+  --on-accent: #ffffff;
+  --hairline: rgb(13 17 16 / 0.1);
+  --focus: #1a6457;
+
+  --field-a: rgb(64 150 128 / 0.3);
+  --field-b: rgb(176 164 136 / 0.26);
+
+  --glass-fill: rgb(255 255 255 / 0.6);
+  --glass-solid: #fbfbfa;
+  --glass-edge-hi: rgb(255 255 255 / 0.95);
+  --glass-edge-lo: rgb(13 17 16 / 0.08);
+  --glass-glow: rgb(255 255 255 / 0.55);
+  --glass-shadow: 0 1px 1px rgb(13 17 16 / 0.04), 0 12px 24px -8px rgb(13 17 16 / 0.08),
+    0 40px 80px -24px rgb(13 17 16 / 0.14);
+  --specular: rgb(255 255 255 / 0.55);
+  --chip-fill: rgb(13 17 16 / 0.045);
+}
+
+/* Dark tokens: system preference unless the visitor chose light,
+   or an explicit dark choice. Kept identical in both blocks. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0b0d0d;
+    --fg: #f1f4f3;
+    --fg-muted: #b0bab7;
+    --accent: #72c7b1;
+    --accent-fill: #72c7b1;
+    --on-accent: #04201a;
+    --hairline: rgb(241 244 243 / 0.1);
+    --focus: #72c7b1;
+    --field-a: rgb(58 150 126 / 0.24);
+    --field-b: rgb(140 128 104 / 0.14);
+    --glass-fill: rgb(255 255 255 / 0.08);
+    --glass-solid: #171a1a;
+    --glass-edge-hi: rgb(255 255 255 / 0.22);
+    --glass-edge-lo: rgb(255 255 255 / 0.04);
+    --glass-glow: rgb(255 255 255 / 0.06);
+    --glass-shadow: 0 1px 1px rgb(0 0 0 / 0.3), 0 16px 32px -12px rgb(0 0 0 / 0.5),
+      0 48px 96px -32px rgb(0 0 0 / 0.6);
+    --specular: rgb(255 255 255 / 0.12);
+    --chip-fill: rgb(255 255 255 / 0.06);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0b0d0d;
+  --fg: #f1f4f3;
+  --fg-muted: #b0bab7;
+  --accent: #72c7b1;
+  --accent-fill: #72c7b1;
+  --on-accent: #04201a;
+  --hairline: rgb(241 244 243 / 0.1);
+  --focus: #72c7b1;
+  --field-a: rgb(58 150 126 / 0.24);
+  --field-b: rgb(140 128 104 / 0.14);
+  --glass-fill: rgb(255 255 255 / 0.08);
+  --glass-solid: #171a1a;
+  --glass-edge-hi: rgb(255 255 255 / 0.22);
+  --glass-edge-lo: rgb(255 255 255 / 0.04);
+  --glass-glow: rgb(255 255 255 / 0.06);
+  --glass-shadow: 0 1px 1px rgb(0 0 0 / 0.3), 0 16px 32px -12px rgb(0 0 0 / 0.5),
+    0 48px 96px -32px rgb(0 0 0 / 0.6);
+  --specular: rgb(255 255 255 / 0.12);
+  --chip-fill: rgb(255 255 255 / 0.06);
+}
+
+/* Tailwind theme: semantic tokens only, no raw hex in components. */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--fg-muted);
+  --color-accent: var(--accent);
+  --color-accent-fill: var(--accent-fill);
+  --color-on-accent: var(--on-accent);
+  --color-hairline: var(--hairline);
+  --color-chip: var(--chip-fill);
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", var(--font-inter),
+    "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Base
+   ────────────────────────────────────────────────────────────── */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--bg);
+}
+html:not(.lenis) {
+  scroll-behavior: smooth;
+}
+body {
+  min-height: 100svh;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem; /* 17px, Apple body size */
+  line-height: 1.6;
+  letter-spacing: -0.003em;
+  transition: background-color 300ms ease, color 300ms ease; /* ease theme changes */
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+/* Sections land below the floating nav. */
+[data-section] {
+  scroll-margin-top: 96px;
+}
+
+/* Typography: size-specific tracking and leading (tight when large). */
+.type-display {
+  font-size: clamp(2.75rem, 1.4rem + 5.6vw, 5.75rem);
+  line-height: 1.02;
+  letter-spacing: -0.038em;
+  font-weight: 600;
+}
+.type-title {
+  font-size: clamp(2rem, 1.35rem + 2.6vw, 3.25rem);
+  line-height: 1.06;
+  letter-spacing: -0.028em;
+  font-weight: 600;
+}
+.type-lead {
+  font-size: clamp(1.25rem, 1.05rem + 0.9vw, 1.625rem);
+  line-height: 1.35;
+  letter-spacing: -0.014em;
+  font-weight: 500;
+}
+.type-heading {
+  font-size: 1.375rem;
+  line-height: 1.25;
+  letter-spacing: -0.016em;
+  font-weight: 600;
+}
+.type-label {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+}
+
+/* Focus: always visible on keyboard, 3:1+ against every surface. */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+[data-section]:focus-visible {
+  outline: none;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Glass material
+   Translucent fill + blur/saturate, a 1px gradient edge (bright top-left,
+   dim bottom-right), subtle inner glow and a long soft shadow.
+   ────────────────────────────────────────────────────────────── */
+.glass {
+  position: relative;
+  isolation: isolate;
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  backdrop-filter: blur(24px) saturate(160%);
+  box-shadow: inset 0 1px 0 0 var(--glass-glow), inset 0 0 24px 0 var(--glass-glow), var(--glass-shadow);
+}
+/* Gradient hairline border via a masked pseudo-element. */
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--glass-edge-hi), var(--glass-edge-lo) 55%, var(--glass-edge-lo));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  pointer-events: none;
+  z-index: 1;
+}
+/* Specular highlight that follows the pointer (set by GlassCard, hover devices only). */
+.glass-specular {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 0%),
+    var(--specular),
+    transparent 60%
+  );
+  z-index: 0;
+}
+.glass[data-hover="true"] .glass-specular {
+  opacity: 1;
+}
+
+/* Fallbacks: solid surface without backdrop-filter, with reduced
+   transparency, or with increased contrast. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass {
+    background: var(--glass-solid);
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
+    background: var(--glass-solid);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .bg-fields {
+    display: none;
+  }
+}
+@media (prefers-contrast: more) {
+  .glass {
+    background: var(--glass-solid);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    outline: 1px solid var(--fg);
+  }
+  :root {
+    --fg-muted: var(--fg);
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Background colour fields (large, soft, blurred; not headers)
+   ────────────────────────────────────────────────────────────── */
+.bg-fields {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.bg-field {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  will-change: transform;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Reveal: opacity + 12px, 600ms ease-out. Only hidden when JS can
+   reveal it again (html.js) and motion is allowed.
+   ────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+    transition: opacity 600ms var(--ease-out-soft), transform 600ms var(--ease-out-soft);
+  }
+  html.js [data-reveal][data-visible="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Reduced motion: no transforms, no smooth scroll, short fades only. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  .glass,
+  .bg-field,
+  .nav-shell {
+    transform: none !important;
+  }
+}
+
+/* Press feedback on pointer-down (instant, no layout shift). */
+.pressable {
+  transition: transform 160ms var(--ease-out-soft), background-color 200ms ease, color 200ms ease,
+    box-shadow 200ms ease;
+}
+.pressable:active {
+  transform: scale(0.97);
+  transition-duration: 80ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pressable:active {
+    transform: none;
+  }
+}
