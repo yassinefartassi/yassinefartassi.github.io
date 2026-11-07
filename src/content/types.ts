@@ -45,12 +45,21 @@ export interface SmallProject {
   link: LinkItem;
 }
 
-export interface TimelineEntry {
-  org: string;
-  title?: string;
-  period?: string;
-  location?: string;
-  bullets?: string[];
+export interface ExperienceEntry {
+  company: string;
+  role: string;
+  period: string;
+  location: string;
+  bullets: string[];
+}
+
+export interface EducationEntry {
+  degree: string;
+  /** School name: only ever rendered in the Education section (CLAUDE.md). */
+  school: string;
+  period: string;
+  location: string;
+  note?: string;
 }
 
 export interface Content {
@@ -110,12 +119,14 @@ export interface Content {
     more: SmallProject[];
   };
 
-  timeline: {
+  experience: {
     heading: string;
-    experienceHeading: string;
-    educationHeading: string;
-    experience: TimelineEntry[];
-    education: TimelineEntry[];
+    entries: ExperienceEntry[];
+  };
+
+  education: {
+    heading: string;
+    entries: EducationEntry[];
   };
 
   skills: {
@@ -141,6 +152,7 @@ export interface Content {
 export type SectionId =
   | "projects"
   | "experience"
+  | "education"
   | "skills"
   | "distinctions"
   | "contact";

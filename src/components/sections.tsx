@@ -1,7 +1,7 @@
 // All page sections. Copy comes only from the Content object.
 import Image from "next/image";
 import type { ReactNode } from "react";
-import type { Content, Flagship, TimelineEntry } from "@/content/types";
+import type { Content, Flagship } from "@/content/types";
 import GlassCard from "./GlassCard";
 import { DownloadIcon, GitHubIcon, LinkedInIcon, MailIcon } from "./icons";
 import { Chips, Container, ExternalLink, Section } from "./ui";
@@ -149,40 +149,97 @@ export function Projects({ content }: { content: Content }) {
 }
 
 /* ─────────────── Experience & education ─────────────── */
-function Timeline({ title, entries }: { title: string; entries: TimelineEntry[] }) {
+/**
+ * One timeline row. Desktop: dates and place in a left column, details on the right.
+ * Mobile: heading first, then a compact dates · place line (only one of the two
+ * meta blocks is displayed at a time, so screen readers hear it once).
+ */
+function TimelineItem({
+  period,
+  location,
+  heading,
+  children,
+}: {
+  period: string;
+  location: string;
+  heading: ReactNode;
+  children?: ReactNode;
+}) {
+  const places = location.split(" · ");
   return (
-    <div data-reveal>
-      <h3 className="type-heading">{title}</h3>
-      <ol className="mt-6 border-l border-hairline">
-        {entries.map((e) => (
-          <li key={e.org} className="relative pb-8 pl-6 last:pb-0">
-            <span className="absolute top-[0.6rem] -left-[4.5px] h-2 w-2 rounded-full bg-muted/60" aria-hidden="true" />
-            {e.period ? <p className="type-label text-muted">{e.period}</p> : null}
-            <p className="mt-0.5 font-semibold tracking-[-0.01em]">{e.org}</p>
-            {e.title ? <p className="text-muted">{e.title}</p> : null}
-            {e.location ? <p className="text-[0.9375rem] text-muted">{e.location}</p> : null}
-            {e.bullets?.length ? (
-              <ul className="mt-2 list-disc space-y-1 pl-5 marker:text-muted">
-                {e.bullets.map((b) => (
-                  <li key={b}>{b}</li>
-                ))}
-              </ul>
-            ) : null}
-          </li>
+    <li data-reveal className="grid gap-x-12 border-t border-hairline py-8 first:border-t-0 first:pt-0 md:grid-cols-[13rem_1fr]">
+      <div className="hidden md:block">
+        <p className="type-label text-fg">{period}</p>
+        {places.map((pl) => (
+          <p key={pl} className="mt-1 text-[0.9375rem] text-muted">
+            {pl}
+          </p>
         ))}
-      </ol>
-    </div>
+      </div>
+      <div className="max-w-[44rem]">
+        {heading}
+        <p className="type-label mt-2 text-muted md:hidden">
+          <span className="text-fg">{period}</span> · {location}
+        </p>
+        {children}
+      </div>
+    </li>
   );
 }
 
 export function Experience({ content }: { content: Content }) {
-  const { timeline } = content;
+  const { experience } = content;
   return (
-    <Section id="experience" title={timeline.heading}>
-      <div className="grid gap-16 md:grid-cols-2 md:gap-12">
-        <Timeline title={timeline.experienceHeading} entries={timeline.experience} />
-        <Timeline title={timeline.educationHeading} entries={timeline.education} />
-      </div>
+    <Section id="experience" title={experience.heading}>
+      <ol>
+        {experience.entries.map((e) => (
+          <TimelineItem
+            key={e.company}
+            period={e.period}
+            location={e.location}
+            heading={
+              <>
+                <h3 className="type-heading">{e.company}</h3>
+                <p className="mt-1 font-medium text-muted">{e.role}</p>
+              </>
+            }
+          >
+            <ul className="mt-4 list-disc space-y-2 pl-5 marker:text-accent">
+              {e.bullets.map((b) => (
+                <li key={b} className="pl-1">
+                  {b}
+                </li>
+              ))}
+            </ul>
+          </TimelineItem>
+        ))}
+      </ol>
+    </Section>
+  );
+}
+
+export function Education({ content }: { content: Content }) {
+  const { education } = content;
+  return (
+    <Section id="education" title={education.heading}>
+      <ol>
+        {education.entries.map((e) => (
+          <TimelineItem
+            key={e.degree}
+            period={e.period}
+            location={e.location}
+            heading={
+              <>
+                <h3 className="type-heading">{e.degree}</h3>
+                <p className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 font-medium text-muted">
+                  <span>{e.school}</span>
+                  {e.note ? <span className="type-label rounded-full bg-chip px-2.5 py-0.5 text-accent">{e.note}</span> : null}
+                </p>
+              </>
+            }
+          />
+        ))}
+      </ol>
     </Section>
   );
 }

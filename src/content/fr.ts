@@ -62,7 +62,8 @@ const fr: Content = {
 
   nav: [
     { id: "projects", label: "Projets" },
-    { id: "experience", label: "Parcours" },
+    { id: "experience", label: "Expérience" },
+    { id: "education", label: "Formation" },
     { id: "skills", label: "Compétences" },
     { id: "distinctions", label: "Distinctions" },
     { id: "contact", label: "Contact" },
@@ -203,26 +204,68 @@ const fr: Content = {
     ],
   },
 
-  timeline: {
-    heading: "Parcours",
-    experienceHeading: "Expérience",
-    educationHeading: "Formation",
-    experience: [
-      // TODO(fact): intitulé du poste, dates, lieu et 1 à 3 réalisations pour chaque entrée.
-      { org: "4DBC" },
-      { org: "Atner" },
-      { org: "Afrogotech" },
-    ],
-    education: [
+  // Source : CV_Yassine_Fartassi_fr.pdf (novembre 2026).
+  experience: {
+    heading: "Expérience",
+    entries: [
       {
-        org: "Cycle ingénieur en intelligence artificielle",
-        period: "2025 – 2027",
-        // TODO(fact): nom de l'école (autorisé uniquement ici, dans Formation) et ville.
+        company: "4D Business Consulting (4DBC)",
+        role: "Développement logiciel et IoT",
+        period: "Mai – juil. 2025",
+        location: "Équipe KSF Space, Venezuela · À distance",
+        bullets: [
+          "Contribution au traitement et à la visualisation de la télémétrie d'un CubeSat : transformation des données brutes en informations exploitables pour le suivi et l'analyse.",
+          "Participation à l'intégration matérielle et logicielle, aux tests et à la validation.",
+          "Développement logiciel et firmware avec les protocoles LoRa, MQTT et UART.",
+        ],
       },
       {
-        org: "Licence professionnelle IoT et systèmes intelligents",
-        period: "2024 – 2025",
-        // TODO(fact): nom de l'établissement et ville.
+        company: "Atner",
+        role: "Développement d'applications et automatisation",
+        period: "Avr. 2023 – juin 2024",
+        location: "Rabat, Maroc",
+        bullets: [
+          "Développement d'outils internes pour les RH et automatisation du traitement documentaire.",
+          "Contribution à une application comptable facilitant le suivi des blocages financiers.",
+          "Automatisation du suivi des achats, du fournisseur au chantier, avec PowerShell, Sage et Excel : meilleure traçabilité et meilleur suivi des projets entre départements.",
+        ],
+      },
+      {
+        company: "Afrogotech",
+        role: "Développement web et mobile",
+        period: "Déc. 2022 – févr. 2023",
+        location: "Rabat, Maroc",
+        bullets: [
+          "Développement et déploiement du site vitrine de l'entreprise.",
+          "Application mobile de gestion de flotte : suivi du carburant et de la vitesse, commandes de démarrage et d'arrêt.",
+          "Traitement et présentation des données issues d'API.",
+        ],
+      },
+    ],
+  },
+
+  // Le nom de l'école n'apparaît qu'ici (règle CLAUDE.md).
+  education: {
+    heading: "Formation",
+    entries: [
+      {
+        degree: "Cycle d'ingénieur d'État en intelligence artificielle",
+        school: "ISMAGI",
+        period: "Oct. 2025 – juil. 2027",
+        location: "Rabat, Maroc",
+        note: "En cours",
+      },
+      {
+        degree: "Licence professionnelle en IoT et systèmes intelligents",
+        school: "ISMAGI",
+        period: "Oct. 2024 – juil. 2025",
+        location: "Rabat, Maroc",
+      },
+      {
+        degree: "Diplôme de technicien spécialisé en développement informatique",
+        school: "OFPPT NTIC",
+        period: "Sept. 2020 – juil. 2022",
+        location: "Rabat, Maroc",
       },
     ],
   },

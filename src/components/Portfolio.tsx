@@ -3,7 +3,7 @@ import { buildJsonLd, serializeJsonLd } from "@/lib/seo";
 import BackgroundFields from "./BackgroundFields";
 import MotionLayer from "./MotionLayer";
 import Nav from "./Nav";
-import { Contact, Distinctions, Experience, Footer, Hero, Projects, Skills } from "./sections";
+import { Contact, Distinctions, Education, Experience, Footer, Hero, Projects, Skills } from "./sections";
 
 /** The whole single page. Same component for every language; only `content` changes. */
 export default function Portfolio({ content }: { content: Content }) {
@@ -22,6 +22,7 @@ export default function Portfolio({ content }: { content: Content }) {
         <Hero content={content} />
         <Projects content={content} />
         <Experience content={content} />
+        <Education content={content} />
         <Skills content={content} />
         <Distinctions content={content} />
         <Contact content={content} />

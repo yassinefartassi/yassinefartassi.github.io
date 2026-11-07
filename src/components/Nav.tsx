@@ -104,7 +104,7 @@ export default function Nav({ content }: { content: Content }) {
             {content.person.name}
           </a>
 
-          <ul className="hidden items-center gap-0.5 md:flex">
+          <ul className="hidden items-center gap-0.5 lg:flex">
             {nav.map((n) => (
               <li key={n.id}>
                 <a href={`#${n.id}`} className={linkClass(n.id)} aria-current={active === n.id ? "location" : undefined}>
@@ -132,7 +132,7 @@ export default function Nav({ content }: { content: Content }) {
             <button
               ref={menuButton}
               type="button"
-              className={`${iconButton} md:hidden`}
+              className={`${iconButton} lg:hidden`}
               aria-expanded={open}
               aria-controls="mobile-menu"
               aria-label={open ? ui.menuClose : ui.menuOpen}
@@ -147,7 +147,7 @@ export default function Nav({ content }: { content: Content }) {
           ref={panel}
           id="mobile-menu"
           hidden={!open}
-          className="glass mt-2 rounded-[24px] p-2 md:hidden"
+          className="glass mt-2 rounded-[24px] p-2 lg:hidden"
         >
           <ul className="flex flex-col">
             {nav.map((n) => (

@@ -36,12 +36,13 @@ grep -rn "TODO(fact)" src
 
 Common edits:
 
-- **Experience bullets**: fill `title`, `period`, `location` and `bullets` on the entries in `timeline.experience`. Empty fields are not rendered.
+- **Experience**: edit `experience.entries` (company, role, period, location, bullets). Copied from the CVs; keep both languages in sync with the PDFs.
+- **Education**: edit `education.entries` (degree, school, period, location, optional note). The school name may only appear here.
 - **Your role on a team project**: set `role` on the flagship (HoldIt). It shows under "Mon rôle" / "My role".
 - **Hackathon details**: add them to `badge` on the HoldIt flagship and to `meta` on the hackathon item in `distinctions`.
 - **Screenshot on a project card**: put the image in `public/projects/` and set `image: { src, alt, width, height }` on the flagship. Use your own screenshots only, with no faces of other people and no dataset images.
 - **Demo link**: add a second item to the flagship's `links`.
-- **CV**: put `CV_Yassine_Fartassi_fr.pdf` in `public/`. The path is set in `shared.ts`.
+- **CV**: `public/CV_Yassine_Fartassi_fr.pdf` (French page) and `public/CV_Yassine_Fartassi_EN.pdf` (English page). Paths are in `shared.ts`. The page itself never shows a phone number, but anything inside these PDFs is public once deployed.
 
 House rules (see `CLAUDE.md`): say "brevet déposé" / "patent filed", never "patented". Keep the school
 name only in the Education section, never in the hero or meta tags. Never add a phone number.

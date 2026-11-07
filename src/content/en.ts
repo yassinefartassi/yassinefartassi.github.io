@@ -1,5 +1,5 @@
 import type { Content } from "./types";
-import { CV_FR, EMAIL, GITHUB, LINKEDIN, PATENT, REPOS } from "./shared";
+import { CV_EN, EMAIL, GITHUB, LINKEDIN, PATENT, REPOS } from "./shared";
 
 // English content, served at /en/.
 // Rules: "patent filed" (never "patented"), no school name in hero/title/meta, no phone.
@@ -61,7 +61,8 @@ const en: Content = {
 
   nav: [
     { id: "projects", label: "Projects" },
-    { id: "experience", label: "Background" },
+    { id: "experience", label: "Experience" },
+    { id: "education", label: "Education" },
     { id: "skills", label: "Skills" },
     { id: "distinctions", label: "Awards" },
     { id: "contact", label: "Contact" },
@@ -72,7 +73,7 @@ const en: Content = {
     focus: ["Computer vision", "Federated learning", "Embedded AI"],
     status: "PFE (final-year) internship from February 2027",
     mobility: "Morocco, France or Germany",
-    cv: { label: "Download CV", href: CV_FR, srContext: "(PDF, in French)" },
+    cv: { label: "Download CV", href: CV_EN, srContext: "(PDF)" },
     contact: "Get in touch",
   },
 
@@ -201,26 +202,68 @@ const en: Content = {
     ],
   },
 
-  timeline: {
-    heading: "Background",
-    experienceHeading: "Experience",
-    educationHeading: "Education",
-    experience: [
-      // TODO(fact): job title, dates, location and 1-3 achievements for each entry.
-      { org: "4DBC" },
-      { org: "Atner" },
-      { org: "Afrogotech" },
-    ],
-    education: [
+  // Source: CV_Yassine_Fartassi_EN.pdf (November 2026).
+  experience: {
+    heading: "Experience",
+    entries: [
       {
-        org: "Engineering degree in artificial intelligence",
-        period: "2025 – 2027",
-        // TODO(fact): school name (allowed only here, in Education) and city.
+        company: "4D Business Consulting (4DBC)",
+        role: "Software Development & IoT",
+        period: "May – Jul. 2025",
+        location: "KSF Space team, Venezuela · Remote",
+        bullets: [
+          "Contributed to CubeSat telemetry processing and visualization software, turning raw data into actionable information for monitoring and analysis.",
+          "Participated in hardware/software integration, testing and validation.",
+          "Software and firmware development using LoRa, MQTT and UART protocols.",
+        ],
       },
       {
-        org: "Professional bachelor's in IoT and smart systems",
-        period: "2024 – 2025",
-        // TODO(fact): institution name and city.
+        company: "Atner",
+        role: "Application Development & Automation",
+        period: "Apr. 2023 – Jun. 2024",
+        location: "Rabat, Morocco",
+        bullets: [
+          "Developed internal HR tools and automated document processing.",
+          "Contributed to an accounting application to help identify and track financial bottlenecks.",
+          "Automated purchase tracking from suppliers to construction sites using PowerShell, Sage and Excel, improving traceability and project monitoring across departments.",
+        ],
+      },
+      {
+        company: "Afrogotech",
+        role: "Web & Mobile Development",
+        period: "Dec. 2022 – Feb. 2023",
+        location: "Rabat, Morocco",
+        bullets: [
+          "Developed and deployed the company website.",
+          "Built a mobile fleet management application for fuel monitoring, speed tracking and vehicle start/stop control.",
+          "Processed and presented API data.",
+        ],
+      },
+    ],
+  },
+
+  // The school name only appears here (CLAUDE.md rule).
+  education: {
+    heading: "Education",
+    entries: [
+      {
+        degree: "State Engineering Degree in Artificial Intelligence",
+        school: "ISMAGI",
+        period: "Oct. 2025 – Jul. 2027",
+        location: "Rabat, Morocco",
+        note: "In progress, expected graduation July 2027",
+      },
+      {
+        degree: "Professional Bachelor's Degree in IoT & Intelligent Systems",
+        school: "ISMAGI",
+        period: "Oct. 2024 – Jul. 2025",
+        location: "Rabat, Morocco",
+      },
+      {
+        degree: "Specialized Technician Diploma in Software Development",
+        school: "OFPPT NTIC",
+        period: "Sep. 2020 – Jul. 2022",
+        location: "Rabat, Morocco",
       },
     ],
   },
@@ -279,7 +322,7 @@ const en: Content = {
     links: [
       { label: "GitHub", href: GITHUB, srContext: "profile of Yassine Fartassi" },
       { label: "LinkedIn", href: LINKEDIN, srContext: "profile of Yassine Fartassi" },
-      { label: "CV", href: CV_FR, srContext: "as a PDF, in French" },
+      { label: "CV", href: CV_EN, srContext: "as a PDF" },
     ],
   },
 };

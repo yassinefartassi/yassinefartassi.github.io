@@ -19,9 +19,9 @@ export const REPOS = {
   flight: repo("System-distribue-flight-management"),
 } as const;
 
-// TODO(fact): add public/CV_Yassine_Fartassi_fr.pdf (the link 404s until then).
-// TODO(fact): an English CV? Both languages link to the French PDF for now.
+// CVs live in public/. Note: the PDFs contain a phone number; see README.
 export const CV_FR = "/CV_Yassine_Fartassi_fr.pdf";
+export const CV_EN = "/CV_Yassine_Fartassi_EN.pdf";
 
 // Patent facts as provided. Say "brevet déposé" / "patent filed", never "patented".
 export const PATENT = { office: "OMPIC", year: "2025", number: "72322" } as const;

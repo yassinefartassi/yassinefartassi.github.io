@@ -67,8 +67,7 @@ export const viewport: Viewport = {
 };
 
 /** Person + WebSite structured data. alumniOf is intentionally absent:
- *  the school name only belongs in the Education section.
- *  TODO(fact): add alumniOf once the school name is confirmed. */
+ *  the school name (ISMAGI) only belongs in the Education section (CLAUDE.md). */
 export function buildJsonLd(c: Content) {
   const home = absoluteUrl("/");
   const personId = `${home}#person`;
