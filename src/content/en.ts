@@ -50,7 +50,7 @@ const en: Content = {
     menuClose: "Close menu",
     themeToggle: "Switch between light and dark theme",
     langToggle: {
-      label: "Lire cette page en français",
+      label: "FR, lire cette page en français",
       short: "FR",
       href: "/",
       hrefLang: "fr",

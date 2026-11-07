@@ -51,7 +51,7 @@ const fr: Content = {
     menuClose: "Fermer le menu",
     themeToggle: "Basculer entre thème clair et sombre",
     langToggle: {
-      label: "Read this page in English",
+      label: "EN, read this page in English",
       short: "EN",
       href: "/en/",
       hrefLang: "en",
