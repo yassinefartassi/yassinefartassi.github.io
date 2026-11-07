@@ -1,0 +1,291 @@
+// All page sections. Copy comes only from the Content object.
+import Image from "next/image";
+import type { ReactNode } from "react";
+import type { Content, Flagship, TimelineEntry } from "@/content/types";
+import GlassCard from "./GlassCard";
+import { DownloadIcon, GitHubIcon, LinkedInIcon, MailIcon } from "./icons";
+import { Chips, Container, ExternalLink, Section } from "./ui";
+
+/* ─────────────── Hero ─────────────── */
+export function Hero({ content }: { content: Content }) {
+  const { hero, person } = content;
+  return (
+    <section aria-labelledby="hero-title" className="flex min-h-[92svh] items-center pt-32 pb-20 sm:pt-40">
+      <Container>
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <p className="type-label inline-flex min-h-8 items-center gap-2.5 rounded-full bg-chip px-3.5 py-1.5 text-fg">
+            <span className="h-2 w-2 shrink-0 rounded-full bg-accent-fill" aria-hidden="true" />
+            {hero.status}
+          </p>
+          <p className="type-label text-muted">{hero.mobility}</p>
+        </div>
+
+        {/* Not animated: it is the LCP element and must paint immediately. */}
+        <h1 id="hero-title" className="type-display mt-6 max-w-[14ch] sm:mt-8">
+          {person.name}
+        </h1>
+
+        <p className="type-lead mt-6 max-w-[40rem] sm:mt-8">
+          <span>{hero.role}</span>
+          <span className="text-muted" aria-hidden="true"> | </span>
+          <span className="sr-only">: </span>
+          <span className="text-muted">{hero.focus.join(" · ")}</span>
+        </p>
+
+        <div className="mt-10 flex flex-wrap gap-3 sm:mt-12">
+          <a
+            href={hero.cv.href}
+            className="pressable inline-flex min-h-12 items-center gap-2 rounded-full bg-accent-fill px-6 font-medium text-on-accent hover:opacity-90"
+          >
+            <DownloadIcon />
+            {hero.cv.label}
+            {hero.cv.srContext ? <span className="sr-only"> {hero.cv.srContext}</span> : null}
+          </a>
+          <a href="#contact" className="glass pressable inline-flex min-h-12 items-center rounded-full px-6 font-medium">
+            <span className="relative z-[2]">{hero.contact}</span>
+          </a>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+/* ─────────────── Projects ─────────────── */
+function FlagshipCard({ p, content }: { p: Flagship; content: Content }) {
+  const { labels } = content.projects;
+  const headingId = `project-${p.id}`;
+  return (
+    <GlassCard as="article" interactive aria-labelledby={headingId} className="rounded-[28px]">
+      <div className="flex h-full flex-col p-7 sm:p-8">
+        {p.badge || p.teamNote ? (
+          <p className="type-label mb-4 flex flex-wrap gap-x-3 gap-y-1">
+            {p.badge ? <span className="text-accent">{p.badge}</span> : null}
+            {p.teamNote ? <span className="text-muted">{p.teamNote}</span> : null}
+          </p>
+        ) : null}
+
+        <h3 id={headingId} className="type-heading">
+          {p.name}
+        </h3>
+        <p className="mt-1 text-muted">{p.subtitle}</p>
+
+        {p.image ? (
+          <Image
+            src={p.image.src}
+            alt={p.image.alt}
+            width={p.image.width}
+            height={p.image.height}
+            sizes="(min-width: 768px) 520px, 100vw"
+            className="mt-6 h-auto w-full rounded-[18px]"
+          />
+        ) : null}
+
+        <dl className="mt-6 space-y-5">
+          <div>
+            <dt className="type-label text-muted">{labels.problem}</dt>
+            <dd className="mt-1">{p.problem}</dd>
+          </div>
+          <div>
+            <dt className="type-label text-muted">{labels.built}</dt>
+            <dd className="mt-1">{p.built}</dd>
+          </div>
+          {p.role ? (
+            <div>
+              <dt className="type-label text-muted">{labels.role}</dt>
+              <dd className="mt-1">{p.role}</dd>
+            </div>
+          ) : null}
+          <div>
+            <dt className="type-label text-muted">{labels.stack}</dt>
+            <dd className="mt-2">
+              <Chips items={p.stack} />
+            </dd>
+          </div>
+        </dl>
+
+        {p.note ? <p className="mt-5 text-[0.9375rem] text-muted">{p.note}</p> : null}
+
+        <div className="mt-auto flex flex-wrap gap-x-5 pt-6">
+          {p.links.map((l) => (
+            <ExternalLink key={l.href} link={l} newTab={content.ui.newTab} icon={<GitHubIcon />} className="text-accent" />
+          ))}
+        </div>
+      </div>
+    </GlassCard>
+  );
+}
+
+export function Projects({ content }: { content: Content }) {
+  const { projects } = content;
+  return (
+    <Section id="projects" title={projects.heading} intro={projects.intro}>
+      <ul className="grid gap-6 md:grid-cols-2">
+        {projects.flagships.map((p) => (
+          <li key={p.id} data-reveal>
+            <FlagshipCard p={p} content={content} />
+          </li>
+        ))}
+      </ul>
+
+      <div className="mt-20" data-reveal>
+        <h3 className="type-heading">{projects.moreHeading}</h3>
+        <GlassCard className="mt-6 rounded-[24px]">
+          <ul className="divide-y divide-hairline">
+            {projects.more.map((p) => (
+              <li key={p.name} className="grid gap-2 px-6 py-6 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-8 sm:px-8">
+                <div>
+                  <h4 className="font-semibold tracking-[-0.01em]">{p.name}</h4>
+                  <p className="mt-1 text-muted">{p.summary}</p>
+                  <p className="mt-2 text-[0.875rem] text-muted">{p.stack.join(" · ")}</p>
+                </div>
+                <ExternalLink link={p.link} newTab={content.ui.newTab} icon={<GitHubIcon />} className="text-accent sm:justify-self-end" />
+              </li>
+            ))}
+          </ul>
+        </GlassCard>
+      </div>
+    </Section>
+  );
+}
+
+/* ─────────────── Experience & education ─────────────── */
+function Timeline({ title, entries }: { title: string; entries: TimelineEntry[] }) {
+  return (
+    <div data-reveal>
+      <h3 className="type-heading">{title}</h3>
+      <ol className="mt-6 border-l border-hairline">
+        {entries.map((e) => (
+          <li key={e.org} className="relative pb-8 pl-6 last:pb-0">
+            <span className="absolute top-[0.6rem] -left-[4.5px] h-2 w-2 rounded-full bg-muted/60" aria-hidden="true" />
+            {e.period ? <p className="type-label text-muted">{e.period}</p> : null}
+            <p className="mt-0.5 font-semibold tracking-[-0.01em]">{e.org}</p>
+            {e.title ? <p className="text-muted">{e.title}</p> : null}
+            {e.location ? <p className="text-[0.9375rem] text-muted">{e.location}</p> : null}
+            {e.bullets?.length ? (
+              <ul className="mt-2 list-disc space-y-1 pl-5 marker:text-muted">
+                {e.bullets.map((b) => (
+                  <li key={b}>{b}</li>
+                ))}
+              </ul>
+            ) : null}
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+export function Experience({ content }: { content: Content }) {
+  const { timeline } = content;
+  return (
+    <Section id="experience" title={timeline.heading}>
+      <div className="grid gap-16 md:grid-cols-2 md:gap-12">
+        <Timeline title={timeline.experienceHeading} entries={timeline.experience} />
+        <Timeline title={timeline.educationHeading} entries={timeline.education} />
+      </div>
+    </Section>
+  );
+}
+
+/* ─────────────── Skills ─────────────── */
+export function Skills({ content }: { content: Content }) {
+  const { skills } = content;
+  return (
+    <Section id="skills" title={skills.heading}>
+      <div data-reveal>
+        <h3 className="type-heading">{skills.topHeading}</h3>
+        <div className="mt-5">
+          <Chips items={skills.top} strong />
+        </div>
+      </div>
+      <div className="mt-14 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        {skills.groups.map((g) => (
+          <div key={g.name} data-reveal>
+            <h3 className="font-semibold tracking-[-0.01em]">{g.name}</h3>
+            <div className="mt-3">
+              <Chips items={g.items} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/* ─────────────── Distinctions ─────────────── */
+export function Distinctions({ content }: { content: Content }) {
+  const { distinctions } = content;
+  return (
+    <Section id="distinctions" title={distinctions.heading}>
+      <ul className="grid gap-6 md:grid-cols-2">
+        {distinctions.items.map((d) => (
+          <li key={d.title} data-reveal>
+            <GlassCard interactive className="rounded-[28px]">
+              <div className="p-7 sm:p-8">
+                <p className="type-label text-accent">{d.kind}</p>
+                <h3 className="type-heading mt-2">{d.title}</h3>
+                <p className="mt-2 text-muted">{d.detail}</p>
+                {d.meta ? <p className="type-label mt-4 text-fg">{d.meta}</p> : null}
+              </div>
+            </GlassCard>
+          </li>
+        ))}
+      </ul>
+    </Section>
+  );
+}
+
+/* ─────────────── Contact ─────────────── */
+export function Contact({ content }: { content: Content }) {
+  const { contact, person, ui } = content;
+  const icons: Record<string, ReactNode> = {
+    GitHub: <GitHubIcon />,
+    LinkedIn: <LinkedInIcon />,
+  };
+  return (
+    <Section id="contact" title={contact.heading}>
+      <GlassCard className="rounded-[32px]" data-reveal>
+        <div className="p-8 sm:p-12">
+          <p className="type-lead max-w-[36rem]">{contact.text}</p>
+          <div className="mt-8 flex flex-col items-start gap-3">
+            <a
+              href={`mailto:${person.email}`}
+              className="pressable inline-flex min-h-12 items-center gap-2 rounded-full bg-accent-fill px-6 font-medium text-on-accent hover:opacity-90"
+            >
+              <MailIcon />
+              {contact.emailCta}
+            </a>
+            <p className="text-muted select-all break-all">{person.email}</p>
+          </div>
+          <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-1 border-t border-hairline pt-6">
+            {contact.links.map((l) => (
+              <li key={l.label}>
+                {l.href.startsWith("http") ? (
+                  <ExternalLink link={l} newTab={ui.newTab} icon={icons[l.label]} className="text-fg hover:text-accent" />
+                ) : (
+                  <a href={l.href} className="pressable inline-flex min-h-11 items-center gap-2 rounded-full font-medium hover:text-accent">
+                    <DownloadIcon />
+                    {l.label}
+                    {l.srContext ? <span className="sr-only"> {l.srContext}</span> : null}
+                  </a>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </GlassCard>
+    </Section>
+  );
+}
+
+export function Footer({ content }: { content: Content }) {
+  return (
+    <footer className="pb-12 pt-8">
+      <Container>
+        <p className="border-t border-hairline pt-8 text-[0.875rem] text-muted">
+          © {new Date().getFullYear()} {content.ui.footer}
+        </p>
+      </Container>
+    </footer>
+  );
+}

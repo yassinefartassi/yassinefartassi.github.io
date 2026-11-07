@@ -104,19 +104,20 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: var(--bg);
+  transition: background-color 300ms ease;
 }
 html:not(.lenis) {
   scroll-behavior: smooth;
 }
 body {
   min-height: 100svh;
-  background: var(--bg);
+  /* No body background: the canvas uses html's, so the z-index:-1 colour fields stay visible. */
   color: var(--fg);
   font-family: var(--font-sans);
   font-size: 1.0625rem; /* 17px, Apple body size */
   line-height: 1.6;
   letter-spacing: -0.003em;
-  transition: background-color 300ms ease, color 300ms ease; /* ease theme changes */
+  transition: color 300ms ease; /* ease theme changes */
 }
 
 /* Lenis */
@@ -318,4 +319,28 @@ html.lenis body {
   .pressable:active {
     transform: none;
   }
+}
+
+/* Keyboard focus never lands hidden under the floating nav. */
+html {
+  scroll-padding-top: 96px;
+}
+
+/* Theme toggle icon: shows the theme you would switch to. */
+.icon-when-dark {
+  display: none;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .icon-when-dark {
+    display: block;
+  }
+  :root:not([data-theme="light"]) .icon-when-light {
+    display: none;
+  }
+}
+:root[data-theme="dark"] .icon-when-dark {
+  display: block;
+}
+:root[data-theme="dark"] .icon-when-light {
+  display: none;
 }
