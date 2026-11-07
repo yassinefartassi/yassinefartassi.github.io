@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import type { Content } from "@/content/types";
+import { OG_SIZE } from "./og";
 import { SITE_URL, absoluteUrl } from "./site";
 
 const LANG_PATHS = { fr: "/", en: "/en/" } as const;
@@ -7,6 +8,14 @@ const LANG_PATHS = { fr: "/", en: "/en/" } as const;
 export function buildMetadata(c: Content): Metadata {
   const url = absoluteUrl(c.path);
   const other = c.locale === "fr" ? "en_US" : "fr_FR";
+  // Built by app/(fr)/og.png/route.tsx and app/en/og.png/route.tsx (see lib/og.tsx).
+  const ogImage = {
+    url: absoluteUrl(`${c.path}og.png`),
+    width: OG_SIZE.width,
+    height: OG_SIZE.height,
+    alt: c.meta.ogImageAlt,
+    type: "image/png",
+  };
 
   return {
     metadataBase: new URL(`${SITE_URL}/`),
@@ -33,12 +42,13 @@ export function buildMetadata(c: Content): Metadata {
       description: c.meta.description,
       locale: c.ogLocale,
       alternateLocale: [other],
-      // Image comes from the opengraph-image.tsx file next to the layout.
+      images: [ogImage],
     },
     twitter: {
       card: "summary_large_image",
       title: c.meta.title,
       description: c.meta.description,
+      images: [ogImage],
     },
     robots: { index: true, follow: true },
     // No phone number anywhere: stop iOS from auto-linking digit runs (e.g. the patent number).
