@@ -4,8 +4,6 @@ import Lenis from "lenis";
 import { inView } from "motion";
 import { useEffect } from "react";
 
-const NAV_OFFSET = -96; // matches [data-section] scroll-margin-top
-
 /**
  * Smooth scroll (Lenis), in-page anchor handling and section reveals.
  * With prefers-reduced-motion: no Lenis, no transforms; reveals render in
@@ -43,7 +41,8 @@ export default function MotionLayer() {
         if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
         target.focus({ preventScroll: true });
       };
-      lenis.scrollTo(id ? target : 0, { offset: NAV_OFFSET, onComplete: focusTarget });
+      // Offset comes from CSS (scroll-padding-top + scroll-margin-top), which Lenis reads.
+      lenis.scrollTo(id ? target : 0, { onComplete: focusTarget });
       history.pushState(null, "", id ? `#${id}` : window.location.pathname);
     };
     document.addEventListener("click", onClick);

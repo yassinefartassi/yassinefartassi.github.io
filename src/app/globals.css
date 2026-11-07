@@ -129,9 +129,12 @@ html.lenis body {
   scroll-behavior: auto !important;
 }
 
-/* Sections land below the floating nav. */
+/* Anchor jumps put the section's top edge at the viewport top; the section's
+   own padding (96-128px) then clears the floating nav. The negative margin
+   cancels html's scroll-padding-top, which is only there to keep keyboard
+   focus from landing under the nav. Lenis and native jumps both honour this. */
 [data-section] {
-  scroll-margin-top: 96px;
+  scroll-margin-top: -88px;
 }
 
 /* Typography: size-specific tracking and leading (tight when large). */
@@ -323,7 +326,7 @@ html.lenis body {
 
 /* Keyboard focus never lands hidden under the floating nav. */
 html {
-  scroll-padding-top: 96px;
+  scroll-padding-top: 88px;
 }
 
 /* Theme toggle icon: shows the theme you would switch to. */

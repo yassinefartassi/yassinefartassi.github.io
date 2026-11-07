@@ -3,7 +3,8 @@
 import { motion, useMotionValue, useSpring } from "motion/react";
 import { useEffect, useRef, useState, type ComponentPropsWithoutRef, type ElementType, type PointerEvent } from "react";
 
-const MAX_TILT = 4; // degrees
+const MAX_TILT = 4; // degrees, reached on cards up to ~360px tall
+const TILT_REF_HEIGHT = 360;
 // Critically damped spring (apple-design: damping 1.0, response ~0.4s): no overshoot.
 const SPRING = { bounce: 0, visualDuration: 0.4 };
 const FINE_POINTER = "(hover: hover) and (pointer: fine)";
@@ -51,8 +52,10 @@ export default function GlassCard<T extends ElementType = "div">({
     const r = el.getBoundingClientRect();
     const px = (e.clientX - r.left) / r.width; // 0..1
     const py = (e.clientY - r.top) / r.height;
-    ry.set((px - 0.5) * 2 * MAX_TILT);
-    rx.set(-(py - 0.5) * 2 * MAX_TILT);
+    // Tall cards tilt less: same edge displacement, and text stays crisp.
+    const max = Math.min(MAX_TILT, (MAX_TILT * TILT_REF_HEIGHT) / r.height);
+    ry.set((px - 0.5) * 2 * max);
+    rx.set(-(py - 0.5) * 2 * max);
     el.style.setProperty("--mx", `${(px * 100).toFixed(1)}%`);
     el.style.setProperty("--my", `${(py * 100).toFixed(1)}%`);
   };

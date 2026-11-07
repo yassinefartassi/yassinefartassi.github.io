@@ -114,7 +114,7 @@ const en: Content = {
       {
         id: "fatigue",
         name: "Driver fatigue detection",
-        subtitle: "Real-time fatigue and micro-sleep detection on Raspberry Pi 5",
+        subtitle: "Real-time fatigue and micro-sleep detection on Raspberry\u00a0Pi\u00a05",
         badge: `Patent filed · ${PATENT.office} ${PATENT.year} · No. ${PATENT.number}`,
         problem:
           "Catch driver fatigue and micro-sleeps in time, without relying on a cloud connection.",
@@ -233,7 +233,7 @@ const en: Content = {
     groups: [
       {
         name: "Computer vision",
-        items: ["OpenCV", "MediaPipe", "YOLOv8", "dlib", "Image classification (EfficientNetV2, ResNet)", "rPPG"],
+        items: ["OpenCV", "MediaPipe", "YOLOv8", "dlib", "EfficientNetV2, ResNet-18", "rPPG"],
       },
       {
         name: "Federated learning",
