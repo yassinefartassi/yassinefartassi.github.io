@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import type { Content } from "@/content/types";
-import { inter } from "@/lib/fonts";
+import { instrumentSerif, inter } from "@/lib/fonts";
 import "@/app/globals.css";
 
 // Runs before first paint: applies a saved theme choice (no flash) and marks
@@ -11,7 +11,7 @@ const BOOT = `(function(){var d=document.documentElement;d.classList.add('js');t
 /** Shared <html>/<body> for both root layouts, so each language gets its own lang attribute. */
 export default function RootShell({ content, children }: { content: Content; children: ReactNode }) {
   return (
-    <html lang={content.htmlLang} className={inter.variable} suppressHydrationWarning>
+    <html lang={content.htmlLang} className={`${inter.variable} ${instrumentSerif.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: BOOT }} />
       </head>

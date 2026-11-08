@@ -103,6 +103,8 @@ export interface Content {
 
   hero: {
     role: string;
+    /** One word inside `role`, set in italic serif with the orange underline stroke. */
+    roleAccent: string;
     focus: string[];
     status: string;
     mobility: string;

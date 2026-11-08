@@ -7,6 +7,19 @@ import { DownloadIcon, GitHubIcon, LinkedInIcon, MailIcon } from "./icons";
 import { Chips, Container, ExternalLink, Section } from "./ui";
 
 /* ─────────────── Hero ─────────────── */
+/** Splits the role around its accent word (first match); plain text if the word is absent. */
+function RoleWithAccent({ role, accent }: { role: string; accent: string }) {
+  const i = accent ? role.indexOf(accent) : -1;
+  if (i < 0) return <span>{role}</span>;
+  return (
+    <span>
+      {role.slice(0, i)}
+      <span className="accent-word">{accent}</span>
+      {role.slice(i + accent.length)}
+    </span>
+  );
+}
+
 export function Hero({ content }: { content: Content }) {
   const { hero, person } = content;
   return (
@@ -26,7 +39,7 @@ export function Hero({ content }: { content: Content }) {
         </h1>
 
         <p className="type-lead mt-6 max-w-[40rem] sm:mt-8">
-          <span>{hero.role}</span>
+          <RoleWithAccent role={hero.role} accent={hero.roleAccent} />
           <span className="text-muted" aria-hidden="true"> | </span>
           <span className="sr-only">: </span>
           <span className="text-muted">{hero.focus.join(" · ")}</span>
@@ -35,7 +48,7 @@ export function Hero({ content }: { content: Content }) {
         <div className="mt-10 flex flex-wrap gap-3 sm:mt-12">
           <a
             href={hero.cv.href}
-            className="pressable inline-flex min-h-12 items-center gap-2 rounded-full bg-accent-fill px-6 font-medium text-on-accent hover:opacity-90"
+            className="pressable inline-flex min-h-12 items-center gap-2 rounded-full bg-accent-fill px-6 font-medium text-on-accent hover:bg-accent-fill-hover"
           >
             <DownloadIcon />
             {hero.cv.label}
@@ -107,7 +120,7 @@ function FlagshipCard({ p, content }: { p: Flagship; content: Content }) {
 
         <div className="mt-auto flex flex-wrap gap-x-5 pt-6">
           {p.links.map((l) => (
-            <ExternalLink key={l.href} link={l} newTab={content.ui.newTab} icon={<GitHubIcon />} className="text-accent" />
+            <ExternalLink key={l.href} link={l} newTab={content.ui.newTab} icon={<GitHubIcon />} className="text-fg hover:text-accent" />
           ))}
         </div>
       </div>
@@ -138,7 +151,7 @@ export function Projects({ content }: { content: Content }) {
                   <p className="mt-1 text-muted">{p.summary}</p>
                   <p className="mt-2 text-[0.875rem] text-muted">{p.stack.join(" · ")}</p>
                 </div>
-                <ExternalLink link={p.link} newTab={content.ui.newTab} icon={<GitHubIcon />} className="text-accent sm:justify-self-end" />
+                <ExternalLink link={p.link} newTab={content.ui.newTab} icon={<GitHubIcon />} className="text-fg hover:text-accent sm:justify-self-end" />
               </li>
             ))}
           </ul>
@@ -279,7 +292,7 @@ export function Distinctions({ content }: { content: Content }) {
           <li key={d.title} data-reveal>
             <GlassCard interactive className="rounded-[28px]">
               <div className="p-7 sm:p-8">
-                <p className="type-label text-accent">{d.kind}</p>
+                <p className="type-label text-muted">{d.kind}</p>
                 <h3 className="type-heading mt-2">{d.title}</h3>
                 <p className="mt-2 text-muted">{d.detail}</p>
                 {d.meta ? <p className="type-label mt-4 text-fg">{d.meta}</p> : null}
@@ -307,7 +320,7 @@ export function Contact({ content }: { content: Content }) {
           <div className="mt-8 flex flex-col items-start gap-3">
             <a
               href={`mailto:${person.email}`}
-              className="pressable inline-flex min-h-12 items-center gap-2 rounded-full bg-accent-fill px-6 font-medium text-on-accent hover:opacity-90"
+              className="pressable inline-flex min-h-12 items-center gap-2 rounded-full bg-accent-fill px-6 font-medium text-on-accent hover:bg-accent-fill-hover"
             >
               <MailIcon />
               {contact.emailCta}

@@ -84,7 +84,7 @@ export default function Nav({ content }: { content: Content }) {
 
   const linkClass = (id: SectionId) =>
     `pressable inline-flex min-h-11 items-center rounded-full px-3.5 text-[0.9375rem] font-medium ${
-      active === id ? "bg-chip text-fg" : "text-muted hover:text-fg"
+      active === id ? "bg-chip text-accent" : "text-muted hover:text-fg"
     }`;
 
   const iconButton =
@@ -157,7 +157,7 @@ export default function Nav({ content }: { content: Content }) {
                   onClick={() => setOpen(false)}
                   aria-current={active === n.id ? "location" : undefined}
                   className={`pressable flex min-h-12 items-center rounded-2xl px-4 text-[1.0625rem] font-medium ${
-                    active === n.id ? "bg-chip text-fg" : "text-fg"
+                    active === n.id ? "bg-chip text-accent" : "text-fg"
                   }`}
                 >
                   {n.label}

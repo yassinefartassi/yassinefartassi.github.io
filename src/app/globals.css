@@ -2,33 +2,42 @@
 
 /* ──────────────────────────────────────────────────────────────
    Design tokens
-   Near-monochrome, one accent (muted teal-green). Contrast checked
-   (WCAG AA ≥ 4.5:1) for fg / muted / accent over glass AND over the
-   brightest point of the colour fields, in both themes.
+   Three colours only: cream, ink and ONE orange accent. Every other tone
+   is cream or ink at an opacity (or a mix of the three). Orange is for the
+   primary button, the active nav item, the hero underline stroke, focus
+   rings, links on hover and small status marks; never a large fill behind text.
+   Contrast checked (WCAG AA >= 4.5:1 text, >= 3:1 focus) for fg / muted /
+   accent over the page, the peak of each colour field, glass and chips on
+   glass, in both themes.
    ────────────────────────────────────────────────────────────── */
 :root {
+  --cream: #f3eee3;
+  --ink: #111111;
+  --orange: #d9541e;
+
   color-scheme: light;
-  --bg: #f3f4f3;
-  --fg: #0d1110;
-  --fg-muted: #4a5451;
-  --accent: #1a6457;
-  --accent-fill: #1a6457;
-  --on-accent: #ffffff;
-  --hairline: rgb(13 17 16 / 0.1);
-  --focus: #1a6457;
+  --bg: var(--cream);
+  --fg: var(--ink);
+  --fg-muted: #504f4c; /* ink 72% over cream */
+  --accent: #a33b0c; /* orange text: darker shade of --orange, >= 4.5:1 incl. over the orange field */
+  --accent-fill: var(--orange);
+  --accent-fill-hover: #dd6b3c; /* orange 85% over cream: lighter, so ink text gains contrast */
+  --on-accent: var(--ink); /* ink on orange 4.71:1 (white would be 4.01:1) */
+  --hairline: rgb(17 17 17 / 0.1);
+  --focus: #a33b0c;
 
-  --field-a: rgb(64 150 128 / 0.3);
-  --field-b: rgb(176 164 136 / 0.26);
+  --field-a: rgb(217 84 30 / 0.16);
+  --field-b: rgb(17 17 17 / 0.06);
 
-  --glass-fill: rgb(255 255 255 / 0.6);
-  --glass-solid: #fbfbfa;
-  --glass-edge-hi: rgb(255 255 255 / 0.95);
-  --glass-edge-lo: rgb(13 17 16 / 0.08);
-  --glass-glow: rgb(255 255 255 / 0.55);
-  --glass-shadow: 0 1px 1px rgb(13 17 16 / 0.04), 0 12px 24px -8px rgb(13 17 16 / 0.08),
-    0 40px 80px -24px rgb(13 17 16 / 0.14);
-  --specular: rgb(255 255 255 / 0.55);
-  --chip-fill: rgb(13 17 16 / 0.045);
+  --glass-fill: rgb(250 247 242 / 0.62); /* warm white: cream lifted toward white */
+  --glass-solid: #faf7f2;
+  --glass-edge-hi: rgb(250 247 242 / 0.95);
+  --glass-edge-lo: rgb(17 17 17 / 0.08);
+  --glass-glow: rgb(250 247 242 / 0.55);
+  --glass-shadow: 0 1px 1px rgb(17 17 17 / 0.04), 0 12px 24px -8px rgb(17 17 17 / 0.07),
+    0 40px 80px -24px rgb(17 17 17 / 0.12);
+  --specular: rgb(250 247 242 / 0.6);
+  --chip-fill: rgb(17 17 17 / 0.05);
 }
 
 /* Dark tokens: system preference unless the visitor chose light,
@@ -36,48 +45,50 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --bg: #0b0d0d;
-    --fg: #f1f4f3;
-    --fg-muted: #b0bab7;
-    --accent: #72c7b1;
-    --accent-fill: #72c7b1;
-    --on-accent: #04201a;
-    --hairline: rgb(241 244 243 / 0.1);
-    --focus: #72c7b1;
-    --field-a: rgb(58 150 126 / 0.24);
-    --field-b: rgb(140 128 104 / 0.14);
-    --glass-fill: rgb(255 255 255 / 0.08);
-    --glass-solid: #171a1a;
-    --glass-edge-hi: rgb(255 255 255 / 0.22);
-    --glass-edge-lo: rgb(255 255 255 / 0.04);
-    --glass-glow: rgb(255 255 255 / 0.06);
+    --bg: var(--ink);
+    --fg: var(--cream);
+    --fg-muted: #b4b0a8; /* cream 72% over ink */
+    --accent: #e49571; /* orange text: orange 58% over cream, >= 4.5:1 over glass and fields */
+    --accent-fill: var(--orange);
+    --accent-fill-hover: #dd6b3c;
+    --on-accent: var(--ink);
+    --hairline: rgb(243 238 227 / 0.1);
+    --focus: #e49571;
+    --field-a: rgb(217 84 30 / 0.16);
+    --field-b: rgb(243 238 227 / 0.05);
+    --glass-fill: rgb(243 238 227 / 0.08);
+    --glass-solid: #232322; /* cream 8% over ink */
+    --glass-edge-hi: rgb(243 238 227 / 0.22);
+    --glass-edge-lo: rgb(243 238 227 / 0.04);
+    --glass-glow: rgb(243 238 227 / 0.05);
     --glass-shadow: 0 1px 1px rgb(0 0 0 / 0.3), 0 16px 32px -12px rgb(0 0 0 / 0.5),
       0 48px 96px -32px rgb(0 0 0 / 0.6);
-    --specular: rgb(255 255 255 / 0.12);
-    --chip-fill: rgb(255 255 255 / 0.06);
+    --specular: rgb(243 238 227 / 0.1);
+    --chip-fill: rgb(243 238 227 / 0.06);
   }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #0b0d0d;
-  --fg: #f1f4f3;
-  --fg-muted: #b0bab7;
-  --accent: #72c7b1;
-  --accent-fill: #72c7b1;
-  --on-accent: #04201a;
-  --hairline: rgb(241 244 243 / 0.1);
-  --focus: #72c7b1;
-  --field-a: rgb(58 150 126 / 0.24);
-  --field-b: rgb(140 128 104 / 0.14);
-  --glass-fill: rgb(255 255 255 / 0.08);
-  --glass-solid: #171a1a;
-  --glass-edge-hi: rgb(255 255 255 / 0.22);
-  --glass-edge-lo: rgb(255 255 255 / 0.04);
-  --glass-glow: rgb(255 255 255 / 0.06);
+  --bg: var(--ink);
+  --fg: var(--cream);
+  --fg-muted: #b4b0a8; /* cream 72% over ink */
+  --accent: #e49571; /* orange text: orange 58% over cream, >= 4.5:1 over glass and fields */
+  --accent-fill: var(--orange);
+  --accent-fill-hover: #dd6b3c;
+  --on-accent: var(--ink);
+  --hairline: rgb(243 238 227 / 0.1);
+  --focus: #e49571;
+  --field-a: rgb(217 84 30 / 0.16);
+  --field-b: rgb(243 238 227 / 0.05);
+  --glass-fill: rgb(243 238 227 / 0.08);
+  --glass-solid: #232322; /* cream 8% over ink */
+  --glass-edge-hi: rgb(243 238 227 / 0.22);
+  --glass-edge-lo: rgb(243 238 227 / 0.04);
+  --glass-glow: rgb(243 238 227 / 0.05);
   --glass-shadow: 0 1px 1px rgb(0 0 0 / 0.3), 0 16px 32px -12px rgb(0 0 0 / 0.5),
     0 48px 96px -32px rgb(0 0 0 / 0.6);
-  --specular: rgb(255 255 255 / 0.12);
-  --chip-fill: rgb(255 255 255 / 0.06);
+  --specular: rgb(243 238 227 / 0.1);
+  --chip-fill: rgb(243 238 227 / 0.06);
 }
 
 /* Tailwind theme: semantic tokens only, no raw hex in components. */
@@ -87,11 +98,13 @@
   --color-muted: var(--fg-muted);
   --color-accent: var(--accent);
   --color-accent-fill: var(--accent-fill);
+  --color-accent-fill-hover: var(--accent-fill-hover);
   --color-on-accent: var(--on-accent);
   --color-hairline: var(--hairline);
   --color-chip: var(--chip-fill);
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", var(--font-inter),
     "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-serif: var(--font-instrument-serif), Georgia, "Times New Roman", serif;
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -140,15 +153,15 @@ html.lenis body {
 /* Typography: size-specific tracking and leading (tight when large). */
 .type-display {
   font-size: clamp(2.75rem, 1.4rem + 5.6vw, 5.75rem);
-  line-height: 1.02;
-  letter-spacing: -0.038em;
-  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  font-weight: 700;
 }
 .type-title {
   font-size: clamp(2rem, 1.35rem + 2.6vw, 3.25rem);
-  line-height: 1.06;
-  letter-spacing: -0.028em;
-  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.034em;
+  font-weight: 700;
 }
 .type-lead {
   font-size: clamp(1.25rem, 1.05rem + 0.9vw, 1.625rem);
@@ -167,6 +180,46 @@ html.lenis body {
   line-height: 1.4;
   letter-spacing: 0.02em;
   font-weight: 500;
+}
+
+/* The ONE italic serif accent word (hero only), with the page's single
+   orange underline stroke. The stroke draws in once on load; static with
+   reduced motion. Text stays fg-coloured, so contrast does not depend on orange. */
+.accent-word {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.3em; /* serif caps are lighter; scale up to match the sans optically */
+  line-height: 1;
+  letter-spacing: 0;
+  padding-inline: 0.04em 0.08em;
+}
+.accent-word::after {
+  content: "";
+  position: absolute;
+  left: 0.02em;
+  right: 0.04em;
+  bottom: -0.08em;
+  height: 0.1em;
+  border-radius: 999px;
+  background: var(--accent-fill);
+  transform-origin: left center;
+  transform: rotate(-1.5deg);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .accent-word::after {
+    animation: stroke-in 700ms var(--ease-out-soft) 250ms both;
+  }
+}
+@keyframes stroke-in {
+  from {
+    transform: rotate(-1.5deg) scaleX(0);
+  }
+  to {
+    transform: rotate(-1.5deg) scaleX(1);
+  }
 }
 
 /* Focus: always visible on keyboard, 3:1+ against every surface. */

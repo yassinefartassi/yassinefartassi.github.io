@@ -71,7 +71,7 @@ export function Chips({ items, label, strong = false }: { items: string[]; label
           key={item}
           className={
             strong
-              ? "rounded-full border border-accent/40 bg-chip px-4 py-2 text-[1rem] font-medium"
+              ? "rounded-full border border-fg/15 bg-chip px-4 py-2 text-[1rem] font-medium"
               : "rounded-full bg-chip px-3 py-1.5 text-[0.875rem] leading-snug"
           }
         >

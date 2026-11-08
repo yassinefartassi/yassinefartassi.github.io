@@ -3,7 +3,7 @@
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 
 /**
- * Two large, soft, blurred colour fields behind the glass (teal-green + warm stone).
+ * Two large, soft, blurred colour fields behind the glass (orange + a faint ink/cream tone).
  * Light parallax on scroll; static with reduced motion. Hidden with reduced transparency.
  */
 export default function BackgroundFields() {

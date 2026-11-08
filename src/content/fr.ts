@@ -71,6 +71,7 @@ const fr: Content = {
 
   hero: {
     role: "Étudiant ingénieur IA",
+    roleAccent: "IA",
     focus: ["Vision par ordinateur", "Apprentissage fédéré", "IA embarquée"],
     status: "Stage PFE dès février 2027",
     mobility: "Maroc, France ou Allemagne",

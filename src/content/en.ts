@@ -70,6 +70,7 @@ const en: Content = {
 
   hero: {
     role: "AI engineering student",
+    roleAccent: "AI",
     focus: ["Computer vision", "Federated learning", "Embedded AI"],
     status: "PFE (final-year) internship from February 2027",
     mobility: "Morocco, France or Germany",
