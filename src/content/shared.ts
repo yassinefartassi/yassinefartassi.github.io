@@ -19,7 +19,7 @@ export const REPOS = {
   flight: repo("System-distribue-flight-management"),
 } as const;
 
-// CVs live in public/. Note: the PDFs contain a phone number; see README.
+// CVs live in public/. Web versions: no phone number, no age.
 export const CV_FR = "/CV_Yassine_Fartassi_fr.pdf";
 export const CV_EN = "/CV_Yassine_Fartassi_EN.pdf";
 /** Own photo, cropped to 4:5 with no brand logos; badge QR code blurred. */

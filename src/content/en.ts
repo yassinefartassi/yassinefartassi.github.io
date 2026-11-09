@@ -123,7 +123,6 @@ const en: Content = {
         problem:
           "Catch driver fatigue and micro-sleeps in time, without relying on a cloud connection.",
         // Described as in the public repo: dlib facial landmarks (EAR/MAR) + heart sensor.
-        // TODO(fact): the CV mentions YOLO, the repo uses dlib. Confirm which is right.
         built:
           "An embedded system that tracks eyes and mouth (dlib facial landmarks, EAR/MAR ratios), counts blinks and yawns, reads heart rate and variability from a sensor, then fuses these signals into a weighted fatigue score with graded buzzer alerts and a live dashboard.",
         // TODO(fact): confirm this is a solo project, otherwise state your role.

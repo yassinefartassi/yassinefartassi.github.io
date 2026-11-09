@@ -124,7 +124,6 @@ const fr: Content = {
         problem:
           "Repérer à temps la fatigue et les micro-sommeils d'un conducteur, sans dépendre d'une connexion au cloud.",
         // Décrit comme le dépôt public : repères faciaux dlib (EAR/MAR) + capteur cardiaque.
-        // TODO(fact): le CV mentionne YOLO, le dépôt utilise dlib. Confirmer la bonne version.
         built:
           "Un système embarqué qui suit les yeux et la bouche (repères faciaux dlib, ratios EAR/MAR), compte clignements et bâillements, lit la fréquence et la variabilité cardiaques d'un capteur, puis fusionne ces signaux en un score de fatigue pondéré avec alertes sonores graduées et tableau de bord.",
         // TODO(fact): confirmer que le projet est individuel, sinon préciser le rôle.
