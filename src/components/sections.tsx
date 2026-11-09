@@ -2,7 +2,7 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { preload } from "react-dom";
-import type { Content, Flagship, ProjectImage } from "@/content/types";
+import type { Content, Flagship, KeyFigure, ProjectFlow, ProjectImage } from "@/content/types";
 import GlassCard from "./GlassCard";
 import { DownloadIcon, GitHubIcon, LinkedInIcon, MailIcon } from "./icons";
 import { Chips, Container, ExternalLink, Section } from "./ui";
@@ -111,6 +111,36 @@ export function Hero({ content }: { content: Content }) {
 }
 
 /* ─────────────── Projects ─────────────── */
+/** Verified numbers. The value is shown first, but read after its label would be
+ *  backwards, so each pair is one sentence: "48 ms par inférence…". */
+function KeyFigures({ figures, label }: { figures: KeyFigure[]; label: string }) {
+  return (
+    <ul aria-label={label} className="mt-6 grid gap-x-6 gap-y-4 border-y border-hairline py-5 sm:grid-cols-3">
+      {figures.map((f) => (
+        <li key={f.label}>
+          <span className="block text-[1.625rem] font-bold leading-tight tracking-[-0.02em] tabular-nums">{f.value}</span>{" "}
+          <span className="mt-1 block text-[0.875rem] leading-snug text-muted">{f.label}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** Pipeline diagram in plain HTML: an ordered list on a rail, so it stays legible
+ *  at any width and in both themes, and screen readers get the real order. */
+function FlowDiagram({ flow }: { flow: ProjectFlow }) {
+  return (
+    <ol aria-label={flow.label} className="flow mt-6">
+      {flow.stages.map((s) => (
+        <li key={s.title} className="flow-stage">
+          <p className="type-label text-fg">{s.title}</p>
+          <Chips items={s.items} />
+        </li>
+      ))}
+    </ol>
+  );
+}
+
 function FlagshipCard({ p, content }: { p: Flagship; content: Content }) {
   const { labels } = content.projects;
   const headingId = `project-${p.id}`;
@@ -140,6 +170,8 @@ function FlagshipCard({ p, content }: { p: Flagship; content: Content }) {
           />
         ) : null}
 
+        {p.figures?.length ? <KeyFigures figures={p.figures} label={labels.figures} /> : null}
+
         <dl className="mt-6 space-y-5">
           <div>
             <dt className="type-label text-muted">{labels.problem}</dt>
@@ -162,6 +194,8 @@ function FlagshipCard({ p, content }: { p: Flagship; content: Content }) {
             </dd>
           </div>
         </dl>
+
+        {p.flow ? <FlowDiagram flow={p.flow} /> : null}
 
         {p.note ? <p className="mt-5 text-[0.9375rem] text-muted">{p.note}</p> : null}
 
@@ -324,6 +358,17 @@ export function Skills({ content }: { content: Content }) {
             </div>
           </div>
         ))}
+        <div data-reveal>
+          <h3 className="font-semibold tracking-[-0.01em]">{skills.languages.heading}</h3>
+          <ul className="mt-3 space-y-1.5">
+            {skills.languages.items.map((l) => (
+              <li key={l.name} className="flex items-baseline justify-between gap-4 border-b border-hairline pb-1.5 last:border-b-0">
+                <span className="font-medium">{l.name}</span>
+                <span className="text-[0.875rem] text-muted">{l.level}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </Section>
   );

@@ -30,5 +30,8 @@ export const PORTRAIT = {
   height: 875,
 } as const;
 
+/** Spoken languages as BCP 47 codes, for JSON-LD (labels live in fr.ts / en.ts). */
+export const SPOKEN_LANGUAGES = ["ar", "fr", "en"] as const;
+
 // Patent facts as provided. Say "brevet déposé" / "patent filed", never "patented".
 export const PATENT = { office: "OMPIC", year: "2025", number: "72322" } as const;

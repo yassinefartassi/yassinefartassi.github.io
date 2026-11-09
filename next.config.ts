@@ -8,6 +8,8 @@ const nextConfig: NextConfig = {
   images: { unoptimized: true },
   reactStrictMode: true,
   poweredByHeader: false,
+  // One 404 page for both root layouts (src/app/global-not-found.tsx).
+  experimental: { globalNotFound: true },
 };
 
 export default nextConfig;

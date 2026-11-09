@@ -41,6 +41,10 @@ Common edits:
 - **Your role on a team project**: set `role` on the flagship (HoldIt). It shows under "Mon rôle" / "My role".
 - **Hackathon details**: add them to `badge` on the HoldIt flagship and to `meta` on the hackathon item in `distinctions`.
 - **Screenshot on a project card**: put the image in `public/projects/` and set `image: { src, alt, width, height }` on the flagship. Use your own screenshots only, with no faces of other people and no dataset images.
+- **Key figures on a project card**: set `figures: [{ value, label }]` on the flagship. Only numbers you can point to in the repo or a report; the source goes in a comment above them.
+- **Pipeline diagram on a project card**: set `flow: { label, stages: [{ title, items }] }`. It is drawn in HTML, so it needs no image.
+- **Spoken languages**: edit `skills.languages` (and `SPOKEN_LANGUAGES` in `shared.ts` for structured data).
+- **404 page**: copy is in `notFound` in both content files; the page is `src/app/global-not-found.tsx` and shows both languages.
 - **Demo link**: add a second item to the flagship's `links`.
 - **CV**: `public/CV_Yassine_Fartassi_fr.pdf` (French page) and `public/CV_Yassine_Fartassi_EN.pdf` (English page). Paths are in `shared.ts`. These are web versions with no phone number and no age; anything inside them is public once deployed, so check any new version before replacing them.
 

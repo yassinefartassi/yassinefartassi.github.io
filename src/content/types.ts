@@ -22,6 +22,19 @@ export interface ProjectImage {
   srcSet?: string;
 }
 
+/** A verified number from the project's repository, e.g. { value: "48 ms", label: "…" }. */
+export interface KeyFigure {
+  value: string;
+  label: string;
+}
+
+/** A small pipeline diagram drawn in HTML: ordered stages, each with a few parts. */
+export interface ProjectFlow {
+  /** Accessible name of the diagram. */
+  label: string;
+  stages: { title: string; items: string[] }[];
+}
+
 export interface Flagship {
   id: string;
   name: string;
@@ -38,6 +51,9 @@ export interface Flagship {
   stack: string[];
   links: LinkItem[];
   image?: ProjectImage;
+  /** Measured or documented numbers only. Never invented. */
+  figures?: KeyFigure[];
+  flow?: ProjectFlow;
 }
 
 export interface SmallProject {
@@ -101,6 +117,9 @@ export interface Content {
     footer: string;
   };
 
+  /** 404 page: both languages are shown on the same page. */
+  notFound: { title: string; text: string; cta: string };
+
   nav: { id: SectionId; label: string }[];
 
   hero: {
@@ -121,7 +140,7 @@ export interface Content {
   projects: {
     heading: string;
     intro: string;
-    labels: { problem: string; built: string; role: string; stack: string };
+    labels: { problem: string; built: string; role: string; stack: string; figures: string };
     flagships: Flagship[];
     moreHeading: string;
     more: SmallProject[];
@@ -142,6 +161,8 @@ export interface Content {
     topHeading: string;
     top: string[];
     groups: { name: string; items: string[] }[];
+    /** Spoken languages, from the CV. */
+    languages: { heading: string; items: { name: string; level: string }[] };
   };
 
   distinctions: {

@@ -418,3 +418,39 @@ html {
 :root[data-theme="dark"] .icon-when-light {
   display: none;
 }
+
+/* Project pipeline diagram (FlowDiagram): stages on a vertical rail with a dot each. */
+.flow {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  padding-left: 1.5rem;
+}
+.flow::before {
+  content: "";
+  position: absolute;
+  left: 0.25rem;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 1px;
+  background: var(--hairline);
+}
+.flow-stage {
+  position: relative;
+  display: grid;
+  gap: 0.5rem;
+}
+.flow-stage::before {
+  content: "";
+  position: absolute;
+  left: -1.5rem;
+  top: 0.3125rem;
+  width: 0.5625rem;
+  height: 0.5625rem;
+  border-radius: 9999px;
+  background: var(--accent-fill);
+}
+@media (forced-colors: active) {
+  .flow::before { background: CanvasText; }
+  .flow-stage::before { background: Highlight; }
+}

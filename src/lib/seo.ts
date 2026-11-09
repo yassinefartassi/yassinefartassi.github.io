@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import type { Content } from "@/content/types";
 import { OG_SIZE } from "./og";
+import { SPOKEN_LANGUAGES } from "@/content/shared";
 import { SITE_URL, absoluteUrl } from "./site";
 
 const LANG_PATHS = { fr: "/", en: "/en/" } as const;
@@ -86,6 +87,7 @@ export function buildJsonLd(c: Content) {
         email: `mailto:${c.person.email}`,
         sameAs: [c.person.github, c.person.linkedin],
         knowsAbout: c.person.knowsAbout,
+        knowsLanguage: [...SPOKEN_LANGUAGES],
       },
       {
         "@type": "WebSite",

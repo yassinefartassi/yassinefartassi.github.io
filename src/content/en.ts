@@ -59,6 +59,12 @@ const en: Content = {
     footer: "Yassine Fartassi",
   },
 
+  notFound: {
+    title: "Page not found",
+    text: "This page does not exist or has moved.",
+    cta: "Back to the home page",
+  },
+
   nav: [
     { id: "projects", label: "Projects" },
     { id: "experience", label: "Experience" },
@@ -89,6 +95,7 @@ const en: Content = {
       built: "What I built",
       role: "My role",
       stack: "Stack",
+      figures: "Key figures",
     },
     flagships: [
       {
@@ -111,8 +118,21 @@ const en: Content = {
           "Raspberry Pi 5",
         ],
         links: [{ label: "Source code", href: REPOS.nexus, srContext: "for NEXUS on GitHub" }],
-        // TODO(fact): add a NEXUS screenshot or diagram with no faces or dataset images
-        // (the architecture diagram in the repo contains both).
+        // Numbers from the public repo: README ("Model status"), docs/model_cards.md
+        // and figures/latency_comparison_3platforms_fr.png (n = 30 runs).
+        figures: [
+          { value: "≈\u00a095.9%", label: "accuracy for the eye model (5 classes, 344 test images)" },
+          { value: "48\u00a0ms", label: "per eye-model inference on Raspberry\u00a0Pi\u00a05 (mean of 30 runs)" },
+          { value: "3", label: "platforms running the same ONNX models: web, mobile, edge" },
+        ],
+        flow: {
+          label: "NEXUS architecture",
+          stages: [
+            { title: "Capture", items: ["Web app", "Flutter mobile app", "Raspberry\u00a0Pi\u00a05"] },
+            { title: "Local inference", items: ["Dermatology", "Ophthalmology", "rPPG"] },
+            { title: "Federated learning", items: ["Flower server (FedAvg)", "Weights only, no images"] },
+          ],
+        },
         // TODO(fact): demo link (none yet, so no demo button is rendered).
       },
       {
@@ -130,7 +150,23 @@ const en: Content = {
         links: [
           { label: "Source code", href: REPOS.fatigue, srContext: "for the fatigue detector on GitHub" },
         ],
-        // TODO(fact): dashboard screenshot (no other person's face).
+        // Numbers from the public repo README (indicators, thresholds, weights).
+        // These are design parameters, not measured results.
+        figures: [
+          { value: "7", label: "indicators fused into one weighted fatigue score" },
+          { value: "0.5\u00a0s", label: "of closed eyes is enough to trigger the micro-sleep alert" },
+          { value: "100%", label: "of the processing runs locally, with no cloud" },
+        ],
+        flow: {
+          label: "Processing chain of the fatigue detector",
+          stages: [
+            { title: "Sensors", items: ["Camera", "Heart-rate sensor"] },
+            { title: "Signals", items: ["Eyes (EAR, PERCLOS)", "Yawns (MAR)", "Heart rate and variability"] },
+            { title: "Fusion", items: ["Weighted fatigue score"] },
+            { title: "Outputs", items: ["Graded sound alerts", "Dashboard"] },
+          ],
+        },
+        // TODO(fact): measured results (detection rate, frames per second on Raspberry Pi 5).
         // TODO(fact): demo link.
       },
       {
@@ -297,6 +333,15 @@ const en: Content = {
         items: ["TensorFlow / Keras", "scikit-learn", "XGBoost", "FAISS", "C++", "Java", "Git"],
       },
     ],
+    // Source: CV_Yassine_Fartassi_EN.pdf.
+    languages: {
+      heading: "Languages",
+      items: [
+        { name: "Arabic", level: "Native" },
+        { name: "French", level: "Professional" },
+        { name: "English", level: "Professional" },
+      ],
+    },
   },
 
   distinctions: {

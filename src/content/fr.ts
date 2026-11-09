@@ -60,6 +60,12 @@ const fr: Content = {
     footer: "Yassine Fartassi",
   },
 
+  notFound: {
+    title: "Page introuvable",
+    text: "Cette page n'existe pas ou a été déplacée.",
+    cta: "Retour à l'accueil",
+  },
+
   nav: [
     { id: "projects", label: "Projets" },
     { id: "experience", label: "Expérience" },
@@ -90,6 +96,7 @@ const fr: Content = {
       built: "Ce que j'ai construit",
       role: "Mon rôle",
       stack: "Stack",
+      figures: "Chiffres clés",
     },
     flagships: [
       {
@@ -112,8 +119,21 @@ const fr: Content = {
           "Raspberry Pi 5",
         ],
         links: [{ label: "Code source", href: REPOS.nexus, srContext: "de NEXUS sur GitHub" }],
-        // TODO(fact): ajouter une capture ou un schéma de NEXUS sans visage ni image
-        // de jeu de données (le schéma d'architecture du dépôt en contient).
+        // Chiffres tirés du dépôt public : README (« Model status »), docs/model_cards.md
+        // et figures/latency_comparison_3platforms_fr.png (n = 30 exécutions).
+        figures: [
+          { value: "≈\u00a095,9\u00a0%", label: "d'exactitude du modèle oculaire (5 classes, 344 images de test)" },
+          { value: "48\u00a0ms", label: "par inférence oculaire sur Raspberry\u00a0Pi\u00a05 (moyenne de 30 exécutions)" },
+          { value: "3", label: "plateformes avec les mêmes modèles ONNX : web, mobile, embarqué" },
+        ],
+        flow: {
+          label: "Architecture de NEXUS",
+          stages: [
+            { title: "Capture", items: ["Application web", "Mobile Flutter", "Raspberry\u00a0Pi\u00a05"] },
+            { title: "Inférence locale", items: ["Dermatologie", "Ophtalmologie", "rPPG"] },
+            { title: "Apprentissage fédéré", items: ["Serveur Flower (FedAvg)", "Poids uniquement, aucune image"] },
+          ],
+        },
         // TODO(fact): lien de démo (aucun pour l'instant, pas de bouton affiché).
       },
       {
@@ -131,7 +151,23 @@ const fr: Content = {
         links: [
           { label: "Code source", href: REPOS.fatigue, srContext: "du détecteur de fatigue sur GitHub" },
         ],
-        // TODO(fact): capture du tableau de bord (sans visage d'une autre personne).
+        // Chiffres tirés du README du dépôt public (indicateurs, seuils, pondérations).
+        // Ce sont des paramètres de conception, pas des résultats mesurés.
+        figures: [
+          { value: "7", label: "indicateurs fusionnés en un score de fatigue pondéré" },
+          { value: "0,5\u00a0s", label: "d'yeux fermés suffisent à déclencher l'alerte de micro-sommeil" },
+          { value: "100\u00a0%", label: "du traitement en local, sans cloud" },
+        ],
+        flow: {
+          label: "Chaîne de traitement du détecteur de fatigue",
+          stages: [
+            { title: "Capteurs", items: ["Caméra", "Capteur cardiaque"] },
+            { title: "Signaux", items: ["Yeux (EAR, PERCLOS)", "Bâillements (MAR)", "Fréquence et variabilité cardiaques"] },
+            { title: "Fusion", items: ["Score de fatigue pondéré"] },
+            { title: "Sorties", items: ["Alertes sonores graduées", "Tableau de bord"] },
+          ],
+        },
+        // TODO(fact): résultats mesurés (taux de détection, images par seconde sur Raspberry Pi 5).
         // TODO(fact): lien de démo.
       },
       {
@@ -299,6 +335,15 @@ const fr: Content = {
         items: ["TensorFlow / Keras", "scikit-learn", "XGBoost", "FAISS", "C++", "Java", "Git"],
       },
     ],
+    // Source : CV_Yassine_Fartassi_fr.pdf.
+    languages: {
+      heading: "Langues",
+      items: [
+        { name: "Arabe", level: "Langue maternelle" },
+        { name: "Français", level: "Professionnel" },
+        { name: "Anglais", level: "Professionnel" },
+      ],
+    },
   },
 
   distinctions: {
