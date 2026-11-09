@@ -54,6 +54,12 @@ export interface Flagship {
   /** Measured or documented numbers only. Never invented. */
   figures?: KeyFigure[];
   flow?: ProjectFlow;
+  /** Technical sheet (PDF in public/docs) with the full numbers and screenshots. */
+  doc?: LinkItem;
+  /** Browser demo hosted on this site. */
+  demo?: LinkItem;
+  /** Shown as a highlighted notice on the card, e.g. "not a medical device". */
+  warning?: string;
 }
 
 export interface SmallProject {
@@ -78,6 +84,16 @@ export interface EducationEntry {
   period: string;
   location: string;
   note?: string;
+}
+
+export interface DemoCopy {
+  path: string;
+  title: string;
+  description: string;
+  intro: string;
+  warning: string;
+  limits: string[];
+  source: LinkItem;
 }
 
 export interface Content {
@@ -119,6 +135,45 @@ export interface Content {
 
   /** 404 page: both languages are shown on the same page. */
   notFound: { title: string; text: string; cta: string };
+
+  /** Browser demos: camera processing happens on the visitor's device. */
+  demos: {
+    common: {
+      kicker: string;
+      back: string;
+      consent: string;
+      termsLink: string;
+      newTab: string;
+      start: string;
+      stop: string;
+      loading: string;
+      privacy: string;
+      videoLabel: string;
+      noFace: string;
+      limitsHeading: string;
+      errors: { denied: string; nocamera: string; model: string; unsupported: string };
+    };
+    fatigue: DemoCopy & {
+      labels: { score: string; ear: string; mar: string; blinks: string; yawns: string; perclos: string; sound: string };
+      levels: { alert: string; low: string; moderate: string; high: string; critical: string; microsleep: string };
+    };
+    nexus: DemoCopy & {
+      labels: { buffer: string; waiting: string; ready: string; chrom: string; pos: string; unit: string };
+      /** Repeated next to the readings. */
+      reminder: string;
+    };
+  };
+
+  /** Terms of use page. Plain-language notice, not reviewed by a lawyer. */
+  terms: {
+    path: string;
+    title: string;
+    description: string;
+    updated: string;
+    intro: string;
+    sections: { heading: string; paragraphs: string[] }[];
+    back: string;
+  };
 
   nav: { id: SectionId; label: string }[];
 

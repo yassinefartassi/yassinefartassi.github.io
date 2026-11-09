@@ -45,7 +45,10 @@ Common edits:
 - **Pipeline diagram on a project card**: set `flow: { label, stages: [{ title, items }] }`. It is drawn in HTML, so it needs no image.
 - **Spoken languages**: edit `skills.languages` (and `SPOKEN_LANGUAGES` in `shared.ts` for structured data).
 - **404 page**: copy is in `notFound` in both content files; the page is `src/app/global-not-found.tsx` and shows both languages.
-- **Demo link**: add a second item to the flagship's `links`.
+- **Technical sheet (PDF) on a project card**: set `doc: { label, href }`; paths are in `DOCS` in `shared.ts`. The PDFs in `public/docs/` are built by `scripts/make_docs.py` from the public repos (needs `reportlab` and `pillow`): `python scripts/make_docs.py public/docs <path to nexus-health-screening>`. Only blurred screenshots and charts go in; no dataset images, no weights.
+- **Warning on a project card**: set `warning` (used for "not a medical device" on NEXUS).
+- **Terms of use**: copy is in `terms` in both content files; pages are `/conditions/` and `/en/terms/`. It is a plain-language notice, not reviewed by a lawyer.
+- **Browser demo on a project card**: set `demo: { label, href }`. The two demos live in `src/app/(fr)/demo/` and `src/app/en/demo/`; their copy is in `demos` in both content files. The maths is in `src/lib/demo/` (`fatigue.ts` ports the repo's fusion engine, `rppg.ts` ports the NEXUS Dart rPPG code) and is covered by `npm test`. The camera never leaves the browser; face tracking (MediaPipe) is fetched from jsDelivr and Google at a pinned version in `useFaceCamera.ts`.
 - **CV**: `public/CV_Yassine_Fartassi_fr.pdf` (French page) and `public/CV_Yassine_Fartassi_EN.pdf` (English page). Paths are in `shared.ts`. These are web versions with no phone number and no age; anything inside them is public once deployed, so check any new version before replacing them.
 
 House rules (see `CLAUDE.md`): say "brevet déposé" / "patent filed", never "patented". Keep the school

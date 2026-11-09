@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { preload } from "react-dom";
 import type { Content, Flagship, KeyFigure, ProjectFlow, ProjectImage } from "@/content/types";
 import GlassCard from "./GlassCard";
-import { DownloadIcon, GitHubIcon, LinkedInIcon, MailIcon } from "./icons";
+import { DocIcon, DownloadIcon, PlayIcon, GitHubIcon, LinkedInIcon, MailIcon } from "./icons";
 import { Chips, Container, ExternalLink, Section } from "./ui";
 
 /* ─────────────── Hero ─────────────── */
@@ -159,6 +159,12 @@ function FlagshipCard({ p, content }: { p: Flagship; content: Content }) {
         </h3>
         <p className="mt-1 text-muted">{p.subtitle}</p>
 
+        {p.warning ? (
+          <p className="mt-5 rounded-[14px] border-l-[3px] border-accent-fill bg-chip px-4 py-3 text-[0.9375rem] font-medium">
+            {p.warning}
+          </p>
+        ) : null}
+
         {p.image ? (
           <Image
             src={p.image.src}
@@ -199,7 +205,31 @@ function FlagshipCard({ p, content }: { p: Flagship; content: Content }) {
 
         {p.note ? <p className="mt-5 text-[0.9375rem] text-muted">{p.note}</p> : null}
 
-        <div className="mt-auto flex flex-wrap gap-x-5 pt-6">
+        <div className="mt-auto flex flex-wrap gap-x-6 pt-6">
+          {p.demo ? (
+            <a href={p.demo.href} className="pressable inline-flex min-h-11 items-center gap-2 rounded-full font-semibold text-accent hover:text-fg">
+              <PlayIcon />
+              <span>
+                {p.demo.label}
+                {p.demo.srContext ? <span className="sr-only"> {p.demo.srContext}</span> : null}
+              </span>
+            </a>
+          ) : null}
+          {p.doc ? (
+            <a
+              href={p.doc.href}
+              target="_blank"
+              rel="noopener"
+              className="pressable inline-flex min-h-11 items-center gap-2 rounded-full font-medium text-fg hover:text-accent"
+            >
+              <DocIcon />
+              <span>
+                {p.doc.label}
+                {p.doc.srContext ? <span className="sr-only"> {p.doc.srContext}</span> : null}
+                <span className="sr-only"> {content.ui.newTab}</span>
+              </span>
+            </a>
+          ) : null}
           {p.links.map((l) => (
             <ExternalLink key={l.href} link={l} newTab={content.ui.newTab} icon={<GitHubIcon />} className="text-fg hover:text-accent" />
           ))}
@@ -444,9 +474,14 @@ export function Footer({ content }: { content: Content }) {
   return (
     <footer className="pb-12 pt-8">
       <Container>
-        <p className="border-t border-hairline pt-8 text-[0.875rem] text-muted">
-          © {new Date().getFullYear()} {content.ui.footer}
-        </p>
+        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-hairline pt-6 text-[0.875rem] text-muted">
+          <p>
+            © {new Date().getFullYear()} {content.ui.footer}
+          </p>
+          <a href={content.terms.path} className="pressable inline-flex min-h-11 items-center rounded-full underline underline-offset-4 hover:text-accent">
+            {content.terms.title}
+          </a>
+        </div>
       </Container>
     </footer>
   );

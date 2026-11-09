@@ -33,5 +33,13 @@ export const PORTRAIT = {
 /** Spoken languages as BCP 47 codes, for JSON-LD (labels live in fr.ts / en.ts). */
 export const SPOKEN_LANGUAGES = ["ar", "fr", "en"] as const;
 
+// Technical sheets, built by scripts/make_docs.py from the public repositories.
+export const DOCS = {
+  nexusFr: "/docs/NEXUS_fiche_technique_fr.pdf",
+  nexusEn: "/docs/NEXUS_technical_sheet_en.pdf",
+  fatigueFr: "/docs/Detection_fatigue_fiche_technique_fr.pdf",
+  fatigueEn: "/docs/Driver_fatigue_technical_sheet_en.pdf",
+} as const;
+
 // Patent facts as provided. Say "brevet déposé" / "patent filed", never "patented".
 export const PATENT = { office: "OMPIC", year: "2025", number: "72322" } as const;
