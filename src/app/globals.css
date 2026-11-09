@@ -222,6 +222,24 @@ html.lenis body {
   }
 }
 
+/* Hero portrait: a glass card like the project cards (28px corners, highlight
+   edge, warm shadow) holding the photo, which carries a flush 2px orange contour.
+   Inner radius = card radius - padding, so the two curves stay concentric. */
+.portrait-frame {
+  margin: 0;
+  padding: 12px;
+  border-radius: 28px;
+}
+.portrait-inner {
+  position: relative;
+  z-index: 2; /* above the glass hairline pseudo-element */
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 2px solid var(--accent-fill);
+  border-radius: 16px;
+  background: var(--chip-fill);
+}
+
 /* Focus: always visible on keyboard, 3:1+ against every surface. */
 :focus-visible {
   outline: 2px solid var(--focus);

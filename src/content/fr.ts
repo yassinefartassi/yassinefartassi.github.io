@@ -1,5 +1,5 @@
 import type { Content } from "./types";
-import { CV_FR, EMAIL, GITHUB, LINKEDIN, PATENT, REPOS } from "./shared";
+import { CV_FR, EMAIL, GITHUB, LINKEDIN, PATENT, REPOS, PORTRAIT } from "./shared";
 
 // Contenu français (langue par défaut, servi sur /).
 // Règles : "brevet déposé" (jamais "breveté"), "Étudiant" au masculin,
@@ -77,6 +77,8 @@ const fr: Content = {
     mobility: "Maroc, France ou Allemagne",
     cv: { label: "Télécharger le CV", href: CV_FR, srContext: "(PDF)" },
     contact: "Me contacter",
+    portrait: { ...PORTRAIT, alt: "Yassine Fartassi, souriant, lors d'un salon technologique" },
+    portraitPending: "Photo à venir",
   },
 
   projects: {

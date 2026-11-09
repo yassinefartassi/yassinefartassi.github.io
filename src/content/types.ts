@@ -18,6 +18,8 @@ export interface ProjectImage {
   alt: string;
   width: number;
   height: number;
+  /** Optional responsive candidates, e.g. "/a-420.webp 420w, /a.webp 700w". */
+  srcSet?: string;
 }
 
 export interface Flagship {
@@ -110,6 +112,10 @@ export interface Content {
     mobility: string;
     cv: LinkItem;
     contact: string;
+    /** Portrait on the right of the hero, outlined in orange. Own photo only. */
+    portrait?: ProjectImage;
+    /** Shown inside the empty frame until `portrait` is set. */
+    portraitPending: string;
   };
 
   projects: {

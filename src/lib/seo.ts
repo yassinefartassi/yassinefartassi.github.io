@@ -81,6 +81,7 @@ export function buildJsonLd(c: Content) {
         givenName: c.person.givenName,
         familyName: c.person.familyName,
         jobTitle: c.person.jobTitle,
+        ...(c.hero.portrait ? { image: absoluteUrl(c.hero.portrait.src) } : {}),
         url: home,
         email: `mailto:${c.person.email}`,
         sameAs: [c.person.github, c.person.linkedin],

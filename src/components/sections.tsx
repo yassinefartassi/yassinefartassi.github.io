@@ -1,12 +1,53 @@
 // All page sections. Copy comes only from the Content object.
 import Image from "next/image";
 import type { ReactNode } from "react";
-import type { Content, Flagship } from "@/content/types";
+import { preload } from "react-dom";
+import type { Content, Flagship, ProjectImage } from "@/content/types";
 import GlassCard from "./GlassCard";
 import { DownloadIcon, GitHubIcon, LinkedInIcon, MailIcon } from "./icons";
 import { Chips, Container, ExternalLink, Section } from "./ui";
 
 /* ─────────────── Hero ─────────────── */
+const PORTRAIT_SIZES = "(min-width: 1024px) 380px, 340px";
+
+/**
+ * Portrait in an orange outline. Not animated. On desktop it sits beside the name
+ * and is often the LCP element, so it is preloaded there with high priority; on
+ * phones it comes right after the first screen.
+ * A plain <img> because the static export serves images unoptimized; srcSet gives
+ * phones the 420px file. The preload carries the same srcSet so only one file loads.
+ */
+function HeroPortrait({ portrait, pending }: { portrait?: ProjectImage; pending: string }) {
+  if (portrait) {
+    // Desktop only: there the portrait is above the fold beside the name.
+    preload(portrait.src, {
+      as: "image",
+      fetchPriority: "high",
+      media: "(min-width: 1024px)",
+      ...(portrait.srcSet ? { imageSrcSet: portrait.srcSet, imageSizes: PORTRAIT_SIZES } : {}),
+    });
+  }
+  return (
+    <figure className="portrait-frame glass mx-auto w-full max-w-[340px] lg:max-w-none">
+      <div className="portrait-inner">
+        {portrait ? (
+          <img
+            src={portrait.src}
+            srcSet={portrait.srcSet}
+            sizes={portrait.srcSet ? PORTRAIT_SIZES : undefined}
+            alt={portrait.alt}
+            width={portrait.width}
+            height={portrait.height}
+            className="block h-full w-full object-cover"
+          />
+        ) : (
+          <figcaption className="type-label flex h-full items-center justify-center text-muted">{pending}</figcaption>
+        )}
+      </div>
+    </figure>
+  );
+}
+
 /** Splits the role around its accent word (first match); plain text if the word is absent. */
 function RoleWithAccent({ role, accent }: { role: string; accent: string }) {
   const i = accent ? role.indexOf(accent) : -1;
@@ -24,40 +65,46 @@ export function Hero({ content }: { content: Content }) {
   const { hero, person } = content;
   return (
     <section aria-labelledby="hero-title" className="flex min-h-[92svh] items-center pt-32 pb-20 sm:pt-40">
-      <Container>
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-          <p className="type-label inline-flex min-h-8 items-center gap-2.5 rounded-full bg-chip px-3.5 py-1.5 text-fg">
-            <span className="h-2 w-2 shrink-0 rounded-full bg-accent-fill" aria-hidden="true" />
-            {hero.status}
+      <Container className="grid items-center gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,380px)] lg:gap-16">
+        {/* Phones: the text fills the first screen and the portrait follows on scroll,
+            so the name paints first. Desktop: side by side. */}
+        <div className="flex min-h-[calc(100svh-11rem)] flex-col justify-center lg:block lg:min-h-0">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <p className="type-label inline-flex min-h-8 items-center gap-2.5 rounded-full bg-chip px-3.5 py-1.5 text-fg">
+              <span className="h-2 w-2 shrink-0 rounded-full bg-accent-fill" aria-hidden="true" />
+              {hero.status}
+            </p>
+            <p className="type-label text-muted">{hero.mobility}</p>
+          </div>
+
+          {/* Not animated: it is the LCP element and must paint immediately. */}
+          <h1 id="hero-title" className="type-display mt-6 max-w-[14ch] sm:mt-8">
+            {person.name}
+          </h1>
+
+          <p className="type-lead mt-6 max-w-[40rem] sm:mt-8">
+            <RoleWithAccent role={hero.role} accent={hero.roleAccent} />
+            <span className="text-muted" aria-hidden="true"> | </span>
+            <span className="sr-only">: </span>
+            <span className="text-muted">{hero.focus.join(" · ")}</span>
           </p>
-          <p className="type-label text-muted">{hero.mobility}</p>
+
+          <div className="mt-10 flex flex-wrap gap-3 sm:mt-12">
+            <a
+              href={hero.cv.href}
+              className="pressable inline-flex min-h-12 items-center gap-2 rounded-full bg-accent-fill px-6 font-medium text-on-accent hover:bg-accent-fill-hover"
+            >
+              <DownloadIcon />
+              {hero.cv.label}
+              {hero.cv.srContext ? <span className="sr-only"> {hero.cv.srContext}</span> : null}
+            </a>
+            <a href="#contact" className="glass pressable inline-flex min-h-12 items-center rounded-full px-6 font-medium">
+              <span className="relative z-[2]">{hero.contact}</span>
+            </a>
+          </div>
         </div>
 
-        {/* Not animated: it is the LCP element and must paint immediately. */}
-        <h1 id="hero-title" className="type-display mt-6 max-w-[14ch] sm:mt-8">
-          {person.name}
-        </h1>
-
-        <p className="type-lead mt-6 max-w-[40rem] sm:mt-8">
-          <RoleWithAccent role={hero.role} accent={hero.roleAccent} />
-          <span className="text-muted" aria-hidden="true"> | </span>
-          <span className="sr-only">: </span>
-          <span className="text-muted">{hero.focus.join(" · ")}</span>
-        </p>
-
-        <div className="mt-10 flex flex-wrap gap-3 sm:mt-12">
-          <a
-            href={hero.cv.href}
-            className="pressable inline-flex min-h-12 items-center gap-2 rounded-full bg-accent-fill px-6 font-medium text-on-accent hover:bg-accent-fill-hover"
-          >
-            <DownloadIcon />
-            {hero.cv.label}
-            {hero.cv.srContext ? <span className="sr-only"> {hero.cv.srContext}</span> : null}
-          </a>
-          <a href="#contact" className="glass pressable inline-flex min-h-12 items-center rounded-full px-6 font-medium">
-            <span className="relative z-[2]">{hero.contact}</span>
-          </a>
-        </div>
+        <HeroPortrait portrait={hero.portrait} pending={hero.portraitPending} />
       </Container>
     </section>
   );

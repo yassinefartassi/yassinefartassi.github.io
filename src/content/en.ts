@@ -1,5 +1,5 @@
 import type { Content } from "./types";
-import { CV_EN, EMAIL, GITHUB, LINKEDIN, PATENT, REPOS } from "./shared";
+import { CV_EN, EMAIL, GITHUB, LINKEDIN, PATENT, REPOS, PORTRAIT } from "./shared";
 
 // English content, served at /en/.
 // Rules: "patent filed" (never "patented"), no school name in hero/title/meta, no phone.
@@ -76,6 +76,8 @@ const en: Content = {
     mobility: "Morocco, France or Germany",
     cv: { label: "Download CV", href: CV_EN, srContext: "(PDF)" },
     contact: "Get in touch",
+    portrait: { ...PORTRAIT, alt: "Yassine Fartassi smiling at a technology trade show" },
+    portraitPending: "Photo coming soon",
   },
 
   projects: {

@@ -22,6 +22,13 @@ export const REPOS = {
 // CVs live in public/. Note: the PDFs contain a phone number; see README.
 export const CV_FR = "/CV_Yassine_Fartassi_fr.pdf";
 export const CV_EN = "/CV_Yassine_Fartassi_EN.pdf";
+/** Own photo, cropped to 4:5 with no brand logos; badge QR code blurred. */
+export const PORTRAIT = {
+  src: "/yassine-fartassi.webp",
+  srcSet: "/yassine-fartassi-420.webp 420w, /yassine-fartassi.webp 700w",
+  width: 700,
+  height: 875,
+} as const;
 
 // Patent facts as provided. Say "brevet déposé" / "patent filed", never "patented".
 export const PATENT = { office: "OMPIC", year: "2025", number: "72322" } as const;
