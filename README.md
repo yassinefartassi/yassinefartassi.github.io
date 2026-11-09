@@ -2,7 +2,7 @@
 
 Single-page portfolio built with Next.js (App Router), Tailwind CSS v4, Lenis and Motion.
 It is a fully static export: `npm run build` writes plain HTML, CSS and JS to `out/`, so it
-can be hosted on Vercel, GitHub Pages, Netlify or any static host. There are no server features.
+can be hosted on any static host. It deploys to GitHub Pages (see below). There are no server features.
 
 - French (default): `/`
 - English: `/en/`
@@ -16,7 +16,7 @@ npm run build      # static site in out/
 npm start          # serve out/ on http://localhost:3000
 ```
 
-Node 20.9 or later is required.
+Node 20.9 or later is required (the deploy workflow uses Node 24).
 
 ## Edit content
 
@@ -59,19 +59,31 @@ cp .env.example .env.local   # then edit NEXT_PUBLIC_SITE_URL
 
 If it is not set, the build uses `https://yassinefartassi.github.io`.
 
-## Deploy on Vercel
+## Deploy on GitHub Pages
 
-1. On vercel.com, choose **Add New → Project** and import this GitHub repository. Vercel detects Next.js; keep the default build settings.
-2. Under **Settings → Environment Variables**, add `NEXT_PUBLIC_SITE_URL` with the production URL, for example `https://yassine-fartassi.vercel.app` (no trailing slash).
-3. Deploy. Redeploy whenever you change that variable, because it is baked in at build time.
+`.github/workflows/deploy.yml` builds the site and publishes `out/` on every push to `main`
+(or by hand from the **Actions** tab, "Deploy to GitHub Pages" → **Run workflow**).
+It runs the typecheck, the build, and a check that fails the deploy if a phone number appears in the output.
 
-## When you add a custom domain
+One-time setup on GitHub:
 
-1. Add the domain in Vercel under **Settings → Domains** and follow the DNS instructions.
-2. Set `NEXT_PUBLIC_SITE_URL` to the new domain, for example `https://yassinefartassi.me`, then redeploy.
-3. Check the result: `/sitemap.xml`, `/robots.txt`, and the `<link rel="canonical">` and `og:image` tags in the page source should all use the new domain.
+1. **Settings → Pages → Build and deployment → Source**: choose **GitHub Actions**
+   (not "Deploy from a branch", which would serve the raw source code).
+2. **Settings → Secrets and variables → Actions → Variables**: add `SITE_URL` with the public URL,
+   no trailing slash. It is baked in at build time, so re-run the workflow after changing it.
+   - With a custom domain: `https://yassinefartassi.me`
+   - Without one: `https://yassinefartassi.github.io` (also the default if the variable is missing)
+
+## Custom domain
+
+1. In **Settings → Pages → Custom domain**, enter the domain and follow GitHub's DNS instructions,
+   then tick **Enforce HTTPS**. With the GitHub Actions source, no `CNAME` file is needed.
+2. Set the `SITE_URL` variable to the same domain and re-run the workflow. If `SITE_URL` and the Pages
+   domain differ, canonical and Open Graph URLs will point at the wrong host.
+3. Check the result: `/sitemap.xml`, `/robots.txt`, and the `<link rel="canonical">` and `og:image` tags in the page source should all use the domain.
 4. In Google Search Console, add the domain and submit `https://<domain>/sitemap.xml`.
-5. Only if you host on GitHub Pages instead of Vercel: add a `public/CNAME` file containing the domain.
+
+To remove the custom domain, clear it in the Pages settings and set `SITE_URL` back to `https://yassinefartassi.github.io`.
 
 ## Structure
 
