@@ -311,6 +311,18 @@ function TimelineItem({
   );
 }
 
+/** Employer mark on a light tile (logos are drawn for light backgrounds), or a monogram. */
+function CompanyMark({ name, logo }: { name: string; logo?: string }) {
+  return (
+    <span
+      aria-hidden="true"
+      className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-[12px] border border-hairline bg-white text-[1.125rem] font-bold text-[#111111]"
+    >
+      {logo ? <img src={logo} alt="" width={48} height={48} loading="lazy" decoding="async" className="h-full w-full object-contain p-1.5" /> : name.charAt(0)}
+    </span>
+  );
+}
+
 export function Experience({ content }: { content: Content }) {
   const { experience } = content;
   return (
@@ -322,10 +334,25 @@ export function Experience({ content }: { content: Content }) {
             period={e.period}
             location={e.location}
             heading={
-              <>
-                <h3 className="type-heading">{e.company}</h3>
-                <p className="mt-1 font-medium text-muted">{e.role}</p>
-              </>
+              <div className="flex items-start gap-4">
+                <CompanyMark name={e.company} logo={e.logo} />
+                <div>
+                  <h3 className="type-heading">
+                    {e.website ? (
+                      <a href={e.website} target="_blank" rel="noopener noreferrer" className="pressable rounded-[6px] hover:text-accent">
+                        {e.company}
+                        <span className="sr-only"> {content.ui.newTab}</span>
+                      </a>
+                    ) : (
+                      e.company
+                    )}
+                  </h3>
+                  <p className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 font-medium text-muted">
+                    <span>{e.role}</span>
+                    {e.kind ? <span className="type-label rounded-full bg-chip px-2.5 py-0.5 text-accent">{e.kind}</span> : null}
+                  </p>
+                </div>
+              </div>
             }
           >
             <ul className="mt-4 list-disc space-y-2 pl-5 marker:text-accent">

@@ -1,5 +1,5 @@
 import type { Content } from "./types";
-import { CV_EN, DOCS, EMAIL, GITHUB, LINKEDIN, PATENT, REPOS, PORTRAIT } from "./shared";
+import { CV_EN, DOCS, EMAIL, EMPLOYERS, GITHUB, LINKEDIN, PATENT, REPOS, PORTRAIT } from "./shared";
 
 // English content, served at /en/.
 // Rules: "patent filed" (never "patented"), no school name in hero/title/meta, no phone.
@@ -397,6 +397,8 @@ const en: Content = {
     entries: [
       {
         company: "4D Business Consulting (4DBC)",
+        ...EMPLOYERS.fourDbc,
+        kind: "Internship",
         role: "Software Development & IoT",
         period: "May – Jul. 2025",
         location: "KSF Space team, Venezuela · Remote",
@@ -408,6 +410,8 @@ const en: Content = {
       },
       {
         company: "Atner",
+        ...EMPLOYERS.atner,
+        kind: "Full-time",
         role: "Application Development & Automation",
         period: "Apr. 2023 – Jun. 2024",
         location: "Rabat, Morocco",
@@ -419,6 +423,7 @@ const en: Content = {
       },
       {
         company: "Afrogotech",
+        kind: "Internship",
         role: "Web & Mobile Development",
         period: "Dec. 2022 – Feb. 2023",
         location: "Rabat, Morocco",

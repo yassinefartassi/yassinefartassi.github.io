@@ -1,5 +1,5 @@
 import type { Content } from "./types";
-import { CV_FR, DOCS, EMAIL, GITHUB, LINKEDIN, PATENT, REPOS, PORTRAIT } from "./shared";
+import { CV_FR, DOCS, EMAIL, EMPLOYERS, GITHUB, LINKEDIN, PATENT, REPOS, PORTRAIT } from "./shared";
 
 // Contenu français (langue par défaut, servi sur /).
 // Règles : "brevet déposé" (jamais "breveté"), "Étudiant" au masculin,
@@ -400,6 +400,8 @@ const fr: Content = {
     entries: [
       {
         company: "4D Business Consulting (4DBC)",
+        ...EMPLOYERS.fourDbc,
+        kind: "Stage",
         role: "Développement logiciel et IoT",
         period: "Mai – juil. 2025",
         location: "Équipe KSF Space, Venezuela · À distance",
@@ -411,6 +413,8 @@ const fr: Content = {
       },
       {
         company: "Atner",
+        ...EMPLOYERS.atner,
+        kind: "Temps plein",
         role: "Développement d'applications et automatisation",
         period: "Avr. 2023 – juin 2024",
         location: "Rabat, Maroc",
@@ -422,6 +426,7 @@ const fr: Content = {
       },
       {
         company: "Afrogotech",
+        kind: "Stage",
         role: "Développement web et mobile",
         period: "Déc. 2022 – févr. 2023",
         location: "Rabat, Maroc",

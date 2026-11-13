@@ -36,7 +36,7 @@ grep -rn "TODO(fact)" src
 
 Common edits:
 
-- **Experience**: edit `experience.entries` (company, role, period, location, bullets). Copied from the CVs; keep both languages in sync with the PDFs.
+- **Experience**: edit `experience.entries` (company, role, period, location, bullets). Copied from the CVs; keep both languages in sync with the PDFs. Employer logos and websites are in `EMPLOYERS` in `shared.ts` (square files in `public/logos/`, taken from each company's own site); an entry without a logo shows the company's first letter.
 - **Education**: edit `education.entries` (degree, school, period, location, optional note). The school name may only appear here.
 - **Your role on a team project**: set `role` on the flagship (HoldIt). It shows under "Mon rôle" / "My role".
 - **Hackathon details**: add them to `badge` on the HoldIt flagship and to `meta` on the hackathon item in `distinctions`.

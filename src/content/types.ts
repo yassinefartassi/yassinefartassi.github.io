@@ -71,6 +71,12 @@ export interface SmallProject {
 
 export interface ExperienceEntry {
   company: string;
+  /** Square company mark from the company's own website. Without it, a monogram is shown. */
+  logo?: string;
+  /** Company website, opened from the logo and the name. */
+  website?: string;
+  /** Contract type as told by Yassine, e.g. "Stage" or "Temps plein". */
+  kind?: string;
   role: string;
   period: string;
   location: string;
