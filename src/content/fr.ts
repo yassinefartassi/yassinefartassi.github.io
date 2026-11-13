@@ -426,6 +426,7 @@ const fr: Content = {
       },
       {
         company: "Afrogotech",
+        ...EMPLOYERS.afrogotech,
         kind: "Stage",
         role: "Développement web et mobile",
         period: "Déc. 2022 – févr. 2023",

@@ -423,6 +423,7 @@ const en: Content = {
       },
       {
         company: "Afrogotech",
+        ...EMPLOYERS.afrogotech,
         kind: "Internship",
         role: "Web & Mobile Development",
         period: "Dec. 2022 – Feb. 2023",

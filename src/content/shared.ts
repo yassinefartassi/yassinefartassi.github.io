@@ -45,10 +45,12 @@ export const DOCS = {
 // employer in the Experience section. They remain the property of their owners.
 //   4DBC:  https://www.4dbc.net (mark cropped from the header logo)
 //   Atner: https://www.atner.ma (site icon)
-// Afrogotech has no public website or logo file, so it gets a monogram.
+//   Afrogotech: logo file supplied by Yassine (the company has no public website);
+//               the tile shows the "A" of its wordmark, which stays legible at 48 px.
 export const EMPLOYERS = {
   fourDbc: { logo: "/logos/4dbc.png", website: "https://www.4dbc.net/" },
   atner: { logo: "/logos/atner.png", website: "https://www.atner.ma/" },
+  afrogotech: { logo: "/logos/afrogotech.png" },
 } as const;
 
 // Patent facts as provided. Say "brevet déposé" / "patent filed", never "patented".
