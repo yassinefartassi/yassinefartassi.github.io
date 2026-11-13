@@ -67,6 +67,7 @@ export interface SmallProject {
   summary: string;
   stack: string[];
   link: LinkItem;
+  image?: ProjectImage;
 }
 
 export interface ExperienceEntry {

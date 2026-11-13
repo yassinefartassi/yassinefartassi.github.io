@@ -33,6 +33,26 @@ export const PORTRAIT = {
 /** Spoken languages as BCP 47 codes, for JSON-LD (labels live in fr.ts / en.ts). */
 export const SPOKEN_LANGUAGES = ["ar", "fr", "en"] as const;
 
+// Project banners supplied by Yassine (AI-generated illustrations, 16:9), resized to two
+// widths. The text inside them is in English; the alt text lives in fr.ts / en.ts.
+const banner = (name: string) =>
+  ({
+    src: `/projects/${name}-1040.webp`,
+    srcSet: `/projects/${name}-520.webp 520w, /projects/${name}-1040.webp 1040w`,
+    width: 1040,
+    height: 585,
+  }) as const;
+export const BANNERS = {
+  nexus: banner("nexus"),
+  fatigue: banner("fatigue"),
+  holdit: banner("holdit"),
+  tuteur: banner("tuteur"),
+  fruit: banner("fruit"),
+  buzzer: banner("buzzer"),
+  flight: banner("flight"),
+  road: banner("road"),
+} as const;
+
 // Technical sheets, built by scripts/make_docs.py from the public repositories.
 export const DOCS = {
   nexusFr: "/docs/NEXUS_fiche_technique_fr.pdf",

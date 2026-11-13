@@ -1,5 +1,5 @@
 import type { Content } from "./types";
-import { CV_FR, DOCS, EMAIL, EMPLOYERS, GITHUB, LINKEDIN, PATENT, REPOS, PORTRAIT } from "./shared";
+import { BANNERS, CV_FR, DOCS, EMAIL, EMPLOYERS, GITHUB, LINKEDIN, PATENT, REPOS, PORTRAIT } from "./shared";
 
 // Contenu français (langue par défaut, servi sur /).
 // Règles : "brevet déposé" (jamais "breveté"), "Étudiant" au masculin,
@@ -249,6 +249,7 @@ const fr: Content = {
     flagships: [
       {
         id: "nexus",
+        image: { ...BANNERS.nexus, alt: "Illustration de NEXUS : un téléphone avec les modules peau, yeux et rythme cardiaque, relié à des appareils et à un serveur" },
         name: "NEXUS",
         subtitle: "Prototype de recherche : analyse d'images de santé et apprentissage fédéré",
         warning:
@@ -288,6 +289,7 @@ const fr: Content = {
       },
       {
         id: "fatigue",
+        image: { ...BANNERS.fatigue, alt: "Illustration du détecteur de fatigue : une caméra sur un tableau de bord suit un visage aux yeux fermés et déclenche une alerte" },
         name: "Détection de fatigue du conducteur",
         subtitle: "Fatigue et micro-sommeil en temps réel sur Raspberry\u00a0Pi\u00a05",
         badge: `Brevet déposé · ${PATENT.office} ${PATENT.year} · n° ${PATENT.number}`,
@@ -324,6 +326,7 @@ const fr: Content = {
       },
       {
         id: "holdit",
+        image: { ...BANNERS.holdit, alt: "Illustration de HoldIt : des électrodes sur un avant-bras envoient un signal musculaire qui commande un canon dans un jeu" },
         name: "HoldIt",
         subtitle: "Jeu sérieux de rééducation motrice piloté par l'EMG",
         // TODO(fact): nom, année, ville et organisateur du hackathon.
@@ -348,6 +351,7 @@ const fr: Content = {
       },
       {
         id: "tuteur",
+        image: { ...BANNERS.tuteur, alt: "Illustration de Tuteur IA : un PDF de cours découpé en passages, puis une conversation sur un ordinateur portable" },
         name: "Tuteur IA",
         subtitle: "Des supports de cours PDF à un tuteur interactif",
         problem:
@@ -365,6 +369,7 @@ const fr: Content = {
     more: [
       {
         name: "Risque d'accident routier",
+        image: { ...BANNERS.road, alt: "Illustration du risque d'accident routier : un ordinateur portable affiche une carte des zones à risque, un graphique et une jauge de risque" },
         summary:
           "Tableau de bord Streamlit qui estime le risque d'accident à partir de la météo, de l'itinéraire et du trafic.",
         stack: ["Python", "Streamlit", "scikit-learn", "Web scraping"],
@@ -372,6 +377,7 @@ const fr: Content = {
       },
       {
         name: "Contrôle qualité des fruits",
+        image: { ...BANNERS.fruit, alt: "Illustration du contrôle qualité des fruits : une caméra inspecte des fruits sur un tapis roulant, l'un est signalé comme défectueux" },
         summary:
           "Détection YOLOv8 et analyse OpenCV des défauts, de la couleur et de la texture, avec interface caméra en direct.",
         stack: ["YOLOv8", "OpenCV", "Python"],
@@ -379,6 +385,7 @@ const fr: Content = {
       },
       {
         name: "Buzzer de compétition",
+        image: { ...BANNERS.buzzer, alt: "Illustration du buzzer de compétition : des boutons lumineux reliés à une carte électronique et un écran indiquant le premier appui" },
         summary:
           "Buzzer de quiz pour deux équipes sur ESP32, avec LED, sons et tableau de bord web pour les scores, manches et minuteur.",
         stack: ["ESP32", "C++", "Arduino"],
@@ -386,6 +393,7 @@ const fr: Content = {
       },
       {
         name: "Réservation de vols distribuée",
+        image: { ...BANNERS.flight, alt: "Illustration de la réservation de vols : un globe avec des liaisons aériennes, des serveurs reliés et un formulaire de recherche" },
         summary:
           "Système de réservation en Java : client JavaFX, service REST JAX-RS et base PostgreSQL.",
         stack: ["Java", "JavaFX", "JAX-RS", "PostgreSQL"],

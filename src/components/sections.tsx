@@ -1,5 +1,4 @@
 // All page sections. Copy comes only from the Content object.
-import Image from "next/image";
 import type { ReactNode } from "react";
 import { preload } from "react-dom";
 import type { Content, Flagship, KeyFigure, ProjectFlow, ProjectImage } from "@/content/types";
@@ -141,12 +140,31 @@ function FlowDiagram({ flow }: { flow: ProjectFlow }) {
   );
 }
 
+/** Project banner: lazy-loaded, with two widths so phones fetch the small file. */
+function Banner({ image, sizes, className = "" }: { image: ProjectImage; sizes: string; className?: string }) {
+  return (
+    <img
+      src={image.src}
+      srcSet={image.srcSet}
+      sizes={image.srcSet ? sizes : undefined}
+      alt={image.alt}
+      width={image.width}
+      height={image.height}
+      loading="lazy"
+      decoding="async"
+      className={`block h-auto w-full bg-chip ${className}`}
+    />
+  );
+}
+
 function FlagshipCard({ p, content }: { p: Flagship; content: Content }) {
   const { labels } = content.projects;
   const headingId = `project-${p.id}`;
   return (
     <GlassCard as="article" interactive aria-labelledby={headingId} className="rounded-[28px]">
-      <div className="flex h-full flex-col p-7 sm:p-8">
+      <div className="flex h-full flex-col">
+        {p.image ? <Banner image={p.image} sizes="(min-width: 768px) 520px, 100vw" className="rounded-t-[28px]" /> : null}
+        <div className="flex flex-1 flex-col p-7 sm:p-8">
         {p.badge || p.teamNote ? (
           <p className="type-label mb-4 flex flex-wrap gap-x-3 gap-y-1">
             {p.badge ? <span className="text-accent">{p.badge}</span> : null}
@@ -165,16 +183,6 @@ function FlagshipCard({ p, content }: { p: Flagship; content: Content }) {
           </p>
         ) : null}
 
-        {p.image ? (
-          <Image
-            src={p.image.src}
-            alt={p.image.alt}
-            width={p.image.width}
-            height={p.image.height}
-            sizes="(min-width: 768px) 520px, 100vw"
-            className="mt-6 h-auto w-full rounded-[18px]"
-          />
-        ) : null}
 
         {p.figures?.length ? <KeyFigures figures={p.figures} label={labels.figures} /> : null}
 
@@ -234,6 +242,7 @@ function FlagshipCard({ p, content }: { p: Flagship; content: Content }) {
             <ExternalLink key={l.href} link={l} newTab={content.ui.newTab} icon={<GitHubIcon />} className="text-fg hover:text-accent" />
           ))}
         </div>
+        </div>
       </div>
     </GlassCard>
   );
@@ -256,7 +265,11 @@ export function Projects({ content }: { content: Content }) {
         <GlassCard className="mt-6 rounded-[24px]">
           <ul className="divide-y divide-hairline">
             {projects.more.map((p) => (
-              <li key={p.name} className="grid gap-2 px-6 py-6 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-8 sm:px-8">
+              <li key={p.name} className="grid gap-4 px-6 py-6 sm:grid-cols-[11rem_1fr_auto] sm:items-center sm:gap-8 sm:px-8">
+                {/* The thumbnail column is kept even without an image so the text stays aligned. */}
+                <div className={p.image ? "" : "hidden sm:block"}>
+                  {p.image ? <Banner image={p.image} sizes="(min-width: 640px) 176px, 100vw" className="rounded-[12px]" /> : null}
+                </div>
                 <div>
                   <h4 className="font-semibold tracking-[-0.01em]">{p.name}</h4>
                   <p className="mt-1 text-muted">{p.summary}</p>

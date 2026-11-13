@@ -1,5 +1,5 @@
 import type { Content } from "./types";
-import { CV_EN, DOCS, EMAIL, EMPLOYERS, GITHUB, LINKEDIN, PATENT, REPOS, PORTRAIT } from "./shared";
+import { BANNERS, CV_EN, DOCS, EMAIL, EMPLOYERS, GITHUB, LINKEDIN, PATENT, REPOS, PORTRAIT } from "./shared";
 
 // English content, served at /en/.
 // Rules: "patent filed" (never "patented"), no school name in hero/title/meta, no phone.
@@ -248,6 +248,7 @@ const en: Content = {
     flagships: [
       {
         id: "nexus",
+        image: { ...BANNERS.nexus, alt: "NEXUS illustration: a phone with skin, eyes and heart-rate modules, linked to devices and a server" },
         name: "NEXUS",
         subtitle: "Research prototype: health image analysis and federated learning",
         warning: "Research prototype. It is not a medical device: it gives no diagnosis and no medical advice.",
@@ -286,6 +287,7 @@ const en: Content = {
       },
       {
         id: "fatigue",
+        image: { ...BANNERS.fatigue, alt: "Fatigue detector illustration: a dashboard camera tracks a face with closed eyes and raises an alert" },
         name: "Driver fatigue detection",
         subtitle: "Real-time fatigue and micro-sleep detection on Raspberry\u00a0Pi\u00a05",
         badge: `Patent filed · ${PATENT.office} ${PATENT.year} · No. ${PATENT.number}`,
@@ -322,6 +324,7 @@ const en: Content = {
       },
       {
         id: "holdit",
+        image: { ...BANNERS.holdit, alt: "HoldIt illustration: electrodes on a forearm send a muscle signal that fires a cannon in a game" },
         name: "HoldIt",
         subtitle: "EMG-driven serious game for motor rehabilitation",
         // TODO(fact): hackathon name, year, city and organizer.
@@ -346,6 +349,7 @@ const en: Content = {
       },
       {
         id: "tuteur",
+        image: { ...BANNERS.tuteur, alt: "Tuteur IA illustration: a course PDF split into passages, then a chat on a laptop" },
         name: "Tuteur IA",
         subtitle: "From course PDFs to an interactive AI tutor",
         problem:
@@ -363,6 +367,7 @@ const en: Content = {
     more: [
       {
         name: "Road accident risk",
+        image: { ...BANNERS.road, alt: "Road accident risk illustration: a laptop shows a map of risk hotspots, a chart and a risk gauge" },
         summary:
           "Streamlit dashboard that estimates road-accident risk from weather, route and traffic data.",
         stack: ["Python", "Streamlit", "scikit-learn", "Web scraping"],
@@ -370,6 +375,7 @@ const en: Content = {
       },
       {
         name: "Fruit quality detector",
+        image: { ...BANNERS.fruit, alt: "Fruit quality illustration: a camera inspects fruit on a conveyor belt, one flagged as defective" },
         summary:
           "YOLOv8 detection plus OpenCV defect, colour and texture analysis, with a live camera interface.",
         stack: ["YOLOv8", "OpenCV", "Python"],
@@ -377,6 +383,7 @@ const en: Content = {
       },
       {
         name: "Competition buzzer",
+        image: { ...BANNERS.buzzer, alt: "Competition buzzer illustration: lit buttons wired to a circuit board and a screen showing the first press" },
         summary:
           "Two-team ESP32 quiz buzzer with LEDs, sound and a web dashboard for scores, rounds and timer.",
         stack: ["ESP32", "C++", "Arduino"],
@@ -384,6 +391,7 @@ const en: Content = {
       },
       {
         name: "Distributed flight booking",
+        image: { ...BANNERS.flight, alt: "Flight booking illustration: a globe with flight routes, linked servers and a search form" },
         summary: "Flight reservation system in Java: JavaFX client, JAX-RS REST service and PostgreSQL.",
         stack: ["Java", "JavaFX", "JAX-RS", "PostgreSQL"],
         link: { label: "Source code", href: REPOS.flight, srContext: "for the distributed flight booking system" },
